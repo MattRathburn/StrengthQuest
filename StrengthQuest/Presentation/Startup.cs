@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Presentation.Data;
+using Entities.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -34,11 +34,11 @@ namespace Presentation
         options.MinimumSameSitePolicy = SameSiteMode.None;
       });
 
-      services.AddDbContext<ApplicationDbContext>(options =>
+      services.AddDbContext<AppDbContext>(options =>
           options.UseSqlServer(
               Configuration.GetConnectionString("DefaultConnection")));
       services.AddDefaultIdentity<IdentityUser>()
-          .AddEntityFrameworkStores<ApplicationDbContext>();
+          .AddEntityFrameworkStores<AppDbContext>();
 
       services.Configure<IdentityOptions>(options =>
       {
