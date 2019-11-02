@@ -7,9 +7,6 @@ namespace Entities.Models
 {
   public class User : IdentityUser
   {
-    public bool IsPound { get; set; }
-
-    public ICollection<MainLift> MainLifts { get; set; }
-    public ICollection<SecondaryLift> SecondaryLifts { get; set; }
+    public ICollection<Lift> Lifts { get; set; }
   }
 }

@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Entities.Models
 {
-  public class SecondaryLift
+  public class LiftSequence
   {
-    [Key]
-    public Guid Id { get; set; }
+    public int Id { get; set; }
 
-    public float MaxLift { get; set; }
+    public int Sequence { get; set; }
 
     public User User { get; set; }
 

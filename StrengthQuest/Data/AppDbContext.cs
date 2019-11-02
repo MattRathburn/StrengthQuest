@@ -16,9 +16,11 @@ namespace Data.Models
 
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
-    public DbSet<MainLift> MainLifts { get; set; }
-    public DbSet<SecondaryLift> SecondaryLifts { get; set; }
     public DbSet<Lift> Lifts { get; set; }
+    public DbSet<LiftName> LiftNames { get; set; }
+    public DbSet<LiftSequence> LiftSequences { get; set; }
+    public DbSet<LiftType> LiftTypes { get; set; }
+    public DbSet<WeightMetric> WeightMetrics { get; set; }
 
   }
 }
