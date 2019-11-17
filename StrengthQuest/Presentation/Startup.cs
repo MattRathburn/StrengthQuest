@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Data;
+using Services.LoggerService;
+using System.IO;
+using Contracts;
 
 namespace Presentation
 {
@@ -65,6 +68,7 @@ namespace Presentation
       });
 
       services.AddSingleton<IConfiguration>(Configuration);
+      services.AddSingleton<ILoggerService, LoggerService>();
       services.AddTransient<AppDbContext>();
 
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Repository
 {
@@ -19,35 +20,79 @@ namespace Repository
       _context = context;
     }
 
-    public IEnumerable<LiftType> GetAll()
+    public async Task<IEnumerable<LiftType>> GetAllAsync()
     {
-      return _context.LiftTypes.ToList();
+      return await _context.LiftTypes.ToListAsync();
     }
 
-    public LiftType GetById(int id)
+    public async Task<LiftType> GetAsync(Guid id)
     {
-      return _context.LiftTypes.Find(id);
+      return await _context.LiftTypes.FindAsync(id);
     }
 
-    public void Insert(LiftType liftType)
+    public async Task<LiftType> CreateAsync(LiftType liftType)
     {
-      _context.LiftTypes.Add(liftType);
+      try
+      {
+        await _context.LiftTypes.AddAsync(liftType);
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return liftType;
+      }
+      return liftType;
     }
 
-    public void Update(LiftType liftType)
+    public async Task<LiftType> UpdateAsync(LiftType liftType)
     {
-      _context.Entry(liftType).State = EntityState.Modified;
+      try
+      {
+        _context.Entry(liftType).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return liftType;
+      }
+      return liftType;
     }
 
-    public void Delete(int id)
+    public async Task<LiftType> DeleteAsync(Guid id)
     {
-      LiftType liftType = _context.LiftTypes.Find(id);
-      _context.LiftTypes.Remove(liftType);
+      var liftType = await _context.LiftTypes.FindAsync(id);
+      if(liftType == null)
+      {
+        liftType.Status.Message = "Unable to find liftType";
+        return liftType;
+      }
+
+      try
+      {
+        _context.LiftTypes.Remove(liftType);
+        await _context.SaveChangesAsync();
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return liftType;
+      }
+      return liftType;
     }
 
-    public void Save()
+    public async Task<bool> SaveAsync()
     {
-      _context.SaveChanges();
+      try
+      {
+        await _context.SaveChangesAsync();
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return false;
+      }
+      return true;
     }
 
     #region IDisposable Support

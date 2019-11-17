@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Repository
 {
@@ -19,35 +20,79 @@ namespace Repository
       _context = context;
     }
 
-    public IEnumerable<LiftSequence> GetAll()
+    public async Task<IEnumerable<LiftSequence>> GetAllAsync()
     {
-      return _context.LiftSequences.ToList();
+      return await _context.LiftSequences.ToListAsync();
     }
 
-    public LiftSequence GetById(int id)
+    public async Task<LiftSequence> GetAsync(Guid id)
     {
-      return _context.LiftSequences.Find(id);
+      return await _context.LiftSequences.FindAsync(id);
     }
 
-    public void Insert(LiftSequence liftSequence)
+    public async Task<LiftSequence> CreateAsync(LiftSequence liftSequence)
     {
-      _context.LiftSequences.Add(liftSequence);
+      try
+      {
+        await _context.LiftSequences.AddAsync(liftSequence);
+      }
+      catch(Exception ex)
+      {
+        // logging
+        return liftSequence;
+      }
+      return liftSequence;
     }
 
-    public void Update(LiftSequence liftSequence)
+    public async Task<LiftSequence> UpdateAsync(LiftSequence liftSequence)
     {
-      _context.Entry(liftSequence).State = EntityState.Modified;
+      try
+      {
+        _context.Entry(liftSequence).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+      }
+      catch(Exception ex)
+      {
+        // logging
+        return liftSequence;
+      }
+      return liftSequence;
     }
 
-    public void Delete(int id)
+    public async Task<LiftSequence> DeleteAsync(Guid id)
     {
-      LiftSequence liftSequence = _context.LiftSequences.Find(id);
-      _context.LiftSequences.Remove(liftSequence);
+
+      var liftSequence = await _context.LiftSequences.FindAsync(id);
+      if(liftSequence == null)
+      {
+        return liftSequence;
+      }
+      try
+      {
+        _context.LiftSequences.Remove(liftSequence);
+        await _context.SaveChangesAsync();
+      }
+      catch(Exception ex)
+      {
+        // logging
+        return liftSequence;
+      }
+      return liftSequence;
     }
 
-    public void Save()
+    public async Task<bool> SaveAsync()
     {
-      _context.SaveChanges();
+      try
+      {
+        await _context.SaveChangesAsync();
+      }
+      catch(Exception ex)
+      {
+        // logging
+        return false;
+      }
+      return true;
+
     }
 
     #region IDisposable Support

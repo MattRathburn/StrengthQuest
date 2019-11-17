@@ -6,6 +6,7 @@ using System.Text;
 using Data;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Repository
 {
@@ -19,35 +20,86 @@ namespace Repository
       _context = context;
     }
 
-    public IEnumerable<Role> GetAll()
+    public async Task<IEnumerable<Role>> GetAllAsync()
     {
-      return _context.Roles.ToList();
+      return await _context.Roles.ToListAsync();
     }
 
-    public Role GetById(int id)
+    public async Task<Role> GetAsync(Guid id)
     {
-      return _context.Roles.Find(id);
+      try
+      {
+        return await _context.Roles.FindAsync(id);
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return null;
+      }
     }
 
-    public void Insert(Role role)
+    public async Task<Role> CreateAsync(Role role)
     {
-      _context.Roles.Add(role);
+      try
+      {
+        await _context.Roles.AddAsync(role);
+      }
+      catch (Exception ex)
+      {
+        // Logging
+        return role;
+      }
+      return role;
     }
 
-    public void Update(Role role)
+    public async Task<Role> UpdateAsync(Role role)
     {
-      _context.Entry(role).State = EntityState.Modified;
+      try
+      {
+        _context.Entry(role).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return role;
+      }
+      return role;
     }
 
-    public void Delete(int id)
+    public async Task<Role> DeleteAsync(Guid id)
     {
-      Role role = _context.Roles.Find(id);
-      _context.Roles.Remove(role);
+      var role = await _context.Roles.FindAsync(id);
+      if(role == null)
+      {
+        role.Status.Message = "Unable to find Role";
+        return role;
+      }
+      try
+      {
+        _context.Roles.Remove(role);
+        await _context.SaveChangesAsync();
+      }
+      catch(Exception ex)
+      {
+        // logging
+        return role;
+      }
+      return role;
     }
 
-    public void Save()
+    public async Task<bool> SaveAsync()
     {
-      _context.SaveChanges();
+      try
+      {
+        await _context.SaveChangesAsync();
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return false;
+      }
+      return true;
     }
 
     #region IDisposable Support

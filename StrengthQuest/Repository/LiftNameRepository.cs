@@ -6,48 +6,97 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Repository
 {
   public class LiftNameRepository : ILiftNameRepository
   {
 
-    private AppDbContext _context;
+    private readonly AppDbContext _context;
+    private readonly ILoggerService _logger;
 
     public LiftNameRepository(AppDbContext context)
     {
       _context = context;
     }
 
-    public IEnumerable<LiftName> GetAll()
+    public async Task<IEnumerable<LiftName>> GetAllAsync()
     {
-      return _context.LiftNames.ToList();
+      return await _context.LiftNames.ToListAsync();
     }
 
-    public LiftName GetById(int id)
+    public async Task<LiftName> GetAsync(Guid id)
     {
-      return _context.LiftNames.Find(id);
+      return await _context.LiftNames.FindAsync(id);
     }
 
-    public void Insert(LiftName liftName)
+    public async Task<LiftName> CreateAsync(LiftName liftName)
     {
-      _context.LiftNames.Add(liftName);
+      try
+      {
+        await _context.LiftNames.AddAsync(liftName);
+      }
+      catch (Exception ex)
+      {
+        // Logging
+        return liftName;
+      }
+      return liftName;      
     }
 
-    public void Update(LiftName liftName)
+    public async Task<LiftName> UpdateAsync(LiftName liftName)
     {
-      _context.Entry(liftName).State = EntityState.Modified;
+
+      try
+      {
+        _context.Entry(liftName).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+      }
+      catch  (Exception ex)
+      {
+        // logging
+        return liftName;
+      }
+      return liftName;
+
     }
 
-    public void Delete(int id)
+    public async Task<LiftName> DeleteAsync(Guid id)
     {
-      LiftName liftName = _context.LiftNames.Find(id);
-      _context.LiftNames.Remove(liftName);
+      var liftName = await _context.LiftNames.FindAsync(id);
+
+      if(liftName == null)
+      {
+        liftName.Status.Message = "Unable to find LiftName";
+        return liftName;
+      }
+
+      try
+      {
+        _context.LiftNames.Remove(liftName);
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return liftName;
+      }
+      return liftName;
+
     }
 
-    public void Save()
+    public async Task<bool> SaveAsync()
     {
-      _context.SaveChanges();
+      try
+      {
+        await _context.SaveChangesAsync();
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return false;
+      }
+      return true;
     }
 
     #region IDisposable Support

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Repository
 {
@@ -19,35 +20,85 @@ namespace Repository
       _context = context;
     }
 
-    public IEnumerable<Lift> GetAll()
+    public async Task<IEnumerable<Lift>> GetAllAsync()
     {
-      return _context.Lifts.ToList();
+      return await _context.Lifts.ToListAsync();
     }
 
-    public Lift GetById(int id)
+    public async Task<Lift> GetAsync(Guid id)
     {
-      return _context.Lifts.Find(id);
+      return await _context.Lifts.FindAsync(id);
     }
 
-    public void Insert(Lift lift)
+    public async Task<Lift> CreateAsync(Lift lift)
     {
-      _context.Lifts.Add(lift);
+      try
+      {
+        await _context.Lifts.AddAsync(lift);
+      }
+      catch (Exception ex)
+      {
+        // logging
+        lift.Status.Message = $"An error occurred while creating lift: lift.LiftName.Name.ToString()";
+        return lift;
+      }
+      return lift;
+      
     }
 
-    public void Update(Lift lift)
+    public async Task<Lift> UpdateAsync(Lift lift)
     {
-      _context.Entry(lift).State = EntityState.Modified;
+      try
+      {
+        _context.Entry(lift).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return lift;
+      }
+      return lift;
     }
 
-    public void Delete(int id)
+    public async Task<Lift> DeleteAsync(Guid id)
     {
-      Lift lift = _context.Lifts.Find(id);
-      _context.Lifts.Remove(lift);
+      //  There needs to be a better way to return objects
+      //  if something goes wrong
+
+      var lift = await _context.Lifts.FindAsync(id);
+      if (lift == null)
+      {
+        lift.Status.Message = "Unable to find lift";
+        return lift;
+      }
+
+      try
+      {
+        _context.Lifts.Remove(lift);
+        await _context.SaveChangesAsync();
+      }
+      catch (Exception ex)
+      {
+        // logging
+        lift.Status.Message = "An error occurred while deleting lift";
+        return lift;
+      }
+      return lift;
     }
 
-    public void Save()
+    public async Task<bool> SaveAsync()
     {
-      _context.SaveChanges();
+      try
+      {
+        await _context.SaveChangesAsync();
+      }
+      catch(Exception ex)
+      {
+        // logging
+        return false;
+      }
+      return true;
     }
 
     #region IDisposable Support

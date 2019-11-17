@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Repository
 {
@@ -19,35 +20,96 @@ namespace Repository
       _context = context;
     }
 
-    public IEnumerable<WeightMetric> GetAll()
+    public async Task<IEnumerable<WeightMetric>> GetAllAsync()
     {
-      return _context.WeightMetrics.ToList();
+      try
+      {
+        return await _context.WeightMetrics.ToListAsync();
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return null;
+      }
+
     }
 
-    public WeightMetric GetById(int id)
+    public async Task<WeightMetric> GetAsync(Guid id)
     {
-      return _context.WeightMetrics.Find(id);
+      try
+      {
+        return await _context.WeightMetrics.FindAsync(id);
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return null;
+      }
     }
 
-    public void Insert(WeightMetric weightMetric)
+    public async Task<WeightMetric> CreateAsync(WeightMetric weightMetric)
     {
-      _context.WeightMetrics.Add(weightMetric);
+      try
+      {
+        await _context.WeightMetrics.AddAsync(weightMetric);
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return weightMetric;
+      }
+      return weightMetric;
     }
 
-    public void Update(WeightMetric weightMetric)
+    public async Task<WeightMetric> UpdateAsync(WeightMetric weightMetric)
     {
-      _context.Entry(weightMetric).State = EntityState.Modified;
+      try
+      {
+        _context.Entry(weightMetric).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return weightMetric;
+      }
+      return weightMetric;
     }
 
-    public void Delete(int id)
+    public async Task<WeightMetric> DeleteAsync(Guid id)
     {
-      WeightMetric weightMetric = _context.WeightMetrics.Find(id);
-      _context.WeightMetrics.Remove(weightMetric);
+      var weightMetric = await _context.WeightMetrics.FindAsync(id);
+      if(weightMetric == null)
+      {
+        weightMetric.Status.Message = "Unable to find weightMetric";
+        return weightMetric;
+      }
+      try
+      {
+        _context.WeightMetrics.Remove(weightMetric);
+        await _context.SaveChangesAsync();
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return weightMetric;
+      }
+      return weightMetric;
     }
 
-    public void Save()
+    public async Task<bool> SaveAsync()
     {
-      _context.SaveChanges();
+      try
+      {
+        await _context.SaveChangesAsync();
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return false;
+      }
+      return true;
+
     }
 
     #region IDisposable Support

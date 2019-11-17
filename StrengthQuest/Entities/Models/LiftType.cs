@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Entities.Models
 {
   public class LiftType
   {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string Name { get; set; }
+
+    [NotMapped]
+    public ReturnStatus Status { get; set; }
   }
 }

@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Repository
 {
@@ -21,35 +22,88 @@ namespace Repository
       _context = context;
     }
 
-    public IEnumerable<User> GetAll()
+    public async Task<IEnumerable<User>> GetAllAsync()
     {
-      return _context.Users.ToList();
+      return await _context.Users.ToListAsync();
     }
 
-    public User GetById(int id)
+    public async Task<User> GetAsync(Guid id)
     {
-      return _context.Users.Find(id);
+      try
+      {
+        return await _context.Users.FindAsync(id);
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return null;
+      }
+
     }
 
-    public void Insert(User user)
+    public async Task<User> CreateAsync(User user)
     {
-      _context.Users.Add(user);
+      try
+      {
+        await _context.Users.AddAsync(user);
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return user;
+      }
+      return user;
     }
 
-    public void Update(User user)
+    public async Task<User> UpdateAsync(User user)
     {
-      _context.Entry(user).State = EntityState.Modified;
+      try
+      {
+        _context.Entry(user).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return user;
+      }
+      return user;
     }
 
-    public void Delete(int id)
+    public async Task<User> DeleteAsync(Guid id)
     {
-      User user = _context.Users.Find(id);
-      _context.Users.Remove(user);
+      var user = await _context.Users.FindAsync(id);
+      if(user == null)
+      {
+        user.Status.Message = "Unable to find User";
+        return user;
+      }
+
+      try
+      {
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
+      }
+      catch(Exception ex)
+      {
+        // logging
+        return user;
+      }
+      return user;
     }
 
-    public void Save()
+    public async Task<bool> SaveAsync()
     {
-      _context.SaveChanges();
+      try
+      {
+        await _context.SaveChangesAsync();
+      }
+      catch (Exception ex)
+      {
+        // logging
+        return false;
+      }
+      return true;
     }
 
     public void Dispose()

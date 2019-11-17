@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Entities.Models
@@ -19,5 +20,8 @@ namespace Entities.Models
     public LiftName LiftName { get; set; }
 
     public LiftType LiftType { get; set; }
+
+    [NotMapped]
+    public ReturnStatus Status { get; set; }
   }
 }

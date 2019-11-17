@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Entities.Models
@@ -20,5 +21,7 @@ namespace Entities.Models
       this.Description = description;
     }
 
+    [NotMapped]
+    public ReturnStatus Status { get; set; }
   }
 }

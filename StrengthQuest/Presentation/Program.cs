@@ -18,6 +18,8 @@ namespace Presentation
       var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
 
       CreateWebHostBuilder(args).Build().Run();
+
+      NLog.LogManager.Shutdown();
     }
 
     public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -26,7 +28,7 @@ namespace Presentation
             .ConfigureLogging(logging =>
             {
               logging.ClearProviders();
-              logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+              logging.SetMinimumLevel(LogLevel.Trace);
             })
             .UseNLog();
   }
