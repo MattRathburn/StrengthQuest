@@ -55,6 +55,8 @@ namespace Presentation.Controllers
         return BadRequest();
       }
 
+      _context.Entry(lift).State = EntityState.Modified;
+
       try
       {
         
