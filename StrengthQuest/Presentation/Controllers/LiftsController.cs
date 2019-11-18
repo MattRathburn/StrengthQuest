@@ -55,8 +55,6 @@ namespace Presentation.Controllers
         return BadRequest();
       }
 
-      var li = await _context.Lifts.
-
       try
       {
         
