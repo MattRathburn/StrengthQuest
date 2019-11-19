@@ -263,4 +263,9 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
-/StrengthQuest/Presentation/EntityFrameworkThings.txt
+
+# Notes
+*.txt
+
+# Entity Framework
+[Mm]igrations/
