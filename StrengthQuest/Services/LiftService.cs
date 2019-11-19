@@ -14,7 +14,7 @@ namespace Services
 
     public LiftService(ILiftRepository liftRepository)
     {
-      this._liftRepository = liftRepository;
+      _liftRepository = liftRepository;
     }
 
     public async Task<IEnumerable<Lift>> GetAllAsync()

@@ -1,4 +1,6 @@
 using Entities.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Text;
 
 namespace Data
 {
-  public class AppDbContext : DbContext
+  public class AppDbContext : IdentityDbContext<IdentityUser>
   {
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
@@ -14,8 +16,6 @@ namespace Data
     {
     }
 
-    public DbSet<User> Users { get; set; }
-    public DbSet<Role> Roles { get; set; }
     public DbSet<Lift> Lifts { get; set; }
     public DbSet<LiftName> LiftNames { get; set; }
     public DbSet<LiftSequence> LiftSequences { get; set; }

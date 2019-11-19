@@ -16,86 +16,92 @@ namespace Presentation.Controllers
   [ApiController]
   public class LiftsController : ControllerBase
   {
-    private readonly AppDbContext _context;
     private readonly ILiftService _service;
 
-    public LiftsController(AppDbContext context, ILiftService service)
+    public LiftsController(ILiftService service)
     {
       _service = service;
-      _context = context;
     }
 
     // GET: api/Lifts
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Lift>>> GetLifts()
+    public async Task<IEnumerable<Lift>> GetLifts()
     {
-      return await _context.Lifts.ToListAsync();
+      return await _service.GetAllAsync();
     }
 
     // GET: api/Lifts/5
     [HttpGet("{id}")]
-    public async Task<ActionResult<Lift>> GetLift(Guid id)
+    public async Task<IActionResult> GetLift(Guid id)
     {
-      var lift = await _context.Lifts.FindAsync(id);
+      var lift = await _service.GetAsync(id);
 
       if (lift == null)
       {
         return NotFound();
       }
 
-      return lift;
+      return Ok(lift);
     }
 
     // PUT: api/Lifts/5
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutLift(Guid id, Lift lift)
+    public async Task<IActionResult> PutLift([FromRoute]Guid id, [FromBody]Lift lift)
     {
       if (id != lift.Id)
       {
         return BadRequest();
       }
 
-      _context.Entry(lift).State = EntityState.Modified;
+      var returnedLift = await _service.UpdateAsync(lift);
 
-      try
+      if (returnedLift == null)
       {
-        
-      }
-      catch (DbUpdateConcurrencyException)
-      {
-        if (!LiftExists(id))
-        {
-          return NotFound();
-        }
-        else
-        {
-          throw;
-        }
+        return NotFound();
       }
 
-      return NoContent();
+      if (returnedLift.Status.IsSuccessful)
+      {
+        return StatusCode(200, returnedLift);
+      }
+      return StatusCode(400, "Could not add lift: " + returnedLift.LiftName);
     }
 
     // POST: api/Lifts
     [HttpPost]
     public async Task<ActionResult<Lift>> PostLift(Lift lift)
     {
-      _context.Lifts.Add(lift);
-      await _context.SaveChangesAsync();
+      var returnedLift = await _service.CreateAsync(lift);
 
-      return CreatedAtAction("GetLift", new { id = lift.Id }, lift);
+      if (returnedLift == null)
+      {
+        return NotFound();
+      }
+
+      if (returnedLift.Status.IsSuccessful)
+      {
+        return StatusCode(201, returnedLift);
+      }
+      return StatusCode(400, "Could not add lift: " + returnedLift.LiftName);      
     }
 
     // DELETE: api/Lifts/5
     [HttpDelete("{id}")]
     public async Task<ActionResult<Lift>> DeleteLift(Guid id)
     {
-      return  await _service.DeleteAsync(id);
-    }
+      var returnedLift = await _service.DeleteAsync(id);
 
-    private bool LiftExists(Guid id)
-    {
-      return _context.Lifts.Any(e => e.Id == id);
+      if (returnedLift == null)
+      {
+        return NotFound();
+      }
+
+      if (returnedLift.Status.IsSuccessful)
+      {
+        return StatusCode(200, returnedLift);
+      }
+
+      return StatusCode(400, "Unable to delete lift: " + returnedLift.LiftName);
     }
   }
 }
