@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +12,7 @@ namespace Presentation.Pages
 
     public void OnGet()
     {
-      Message = "Your application description page.";
+      Message = "Strength Quest provides lifters with a tool to track their progress with the nSuns 531 variant.";
     }
   }
 }

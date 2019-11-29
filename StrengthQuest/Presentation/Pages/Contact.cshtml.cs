@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +12,7 @@ namespace Presentation.Pages
 
     public void OnGet()
     {
-      Message = "Your contact page.";
+      Message = "Do not contact me.";
     }
   }
 }
