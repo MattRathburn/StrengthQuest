@@ -10,11 +10,13 @@ namespace Services
 {
   public class LiftService : ILiftService
   {
-    private ILiftRepository _liftRepository;
+    private readonly ILiftRepository _liftRepository;
+    private readonly ILoggerService _logger;
 
-    public LiftService(ILiftRepository liftRepository)
+    public LiftService(ILiftRepository liftRepository, ILoggerService logger)
     {
       _liftRepository = liftRepository;
+      _logger = logger;
     }
 
     public async Task<IEnumerable<Lift>> GetAllAsync()

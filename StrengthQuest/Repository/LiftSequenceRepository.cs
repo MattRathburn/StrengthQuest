@@ -14,10 +14,12 @@ namespace Repository
   {
 
     private AppDbContext _context;
+    private readonly ILoggerService _logger;
 
-    public LiftSequenceRepository(AppDbContext context)
+    public LiftSequenceRepository(AppDbContext context, ILoggerService logger)
     {
       _context = context;
+      _logger = logger;
     }
 
     public async Task<IEnumerable<LiftSequence>> GetAllAsync()

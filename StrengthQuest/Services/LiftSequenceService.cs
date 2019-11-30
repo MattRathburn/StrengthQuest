@@ -11,11 +11,13 @@ namespace Services
   public class LiftSequenceService : ILiftSequenceService
   {
 
-    private ILiftSequenceRepository _liftSequenceRepository;
+    private readonly ILiftSequenceRepository _liftSequenceRepository;
+    private readonly ILoggerService _logger;
 
-    public LiftSequenceService(ILiftSequenceRepository liftSequenceRepository)
+    public LiftSequenceService(ILiftSequenceRepository liftSequenceRepository, ILoggerService logger)
     {
       _liftSequenceRepository = liftSequenceRepository;
+      _logger = logger;
     }
 
     public async Task<LiftSequence> CreateAsync(LiftSequence lift)

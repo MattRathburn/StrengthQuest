@@ -9,6 +9,7 @@ using Data;
 using Entities.Models;
 using Services;
 using Contracts.IServices;
+using Contracts;
 
 namespace Presentation.Controllers
 {
@@ -17,10 +18,12 @@ namespace Presentation.Controllers
   public class LiftsController : ControllerBase
   {
     private readonly ILiftService _service;
+    private readonly ILoggerService _logger;
 
-    public LiftsController(ILiftService service)
+    public LiftsController(ILiftService service, ILoggerService logger)
     {
       _service = service;
+      _logger = logger;
     }
 
     // GET: api/Lifts

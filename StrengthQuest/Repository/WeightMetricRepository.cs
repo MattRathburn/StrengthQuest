@@ -14,10 +14,12 @@ namespace Repository
   {
 
     private AppDbContext _context;
+    private readonly ILoggerService _logger;
 
-    public WeightMetricRepository(AppDbContext context)
+    public WeightMetricRepository(AppDbContext context, ILoggerService logger)
     {
       _context = context;
+      _logger = logger;
     }
 
     public async Task<IEnumerable<WeightMetric>> GetAllAsync()
@@ -28,7 +30,8 @@ namespace Repository
       }
       catch (Exception ex)
       {
-        // logging
+        _logger.LogError("Couldn't get Weight Metric");
+        _logger.LogError($"{ex.Message}");
         return null;
       }
 
@@ -42,7 +45,8 @@ namespace Repository
       }
       catch (Exception ex)
       {
-        // logging
+        _logger.LogError("Couldn't get Weight Metric");
+        _logger.LogError($"{ex.Message}");
         return null;
       }
     }
@@ -55,7 +59,8 @@ namespace Repository
       }
       catch (Exception ex)
       {
-        // logging
+        _logger.LogError("Couldn't create Weight Metric");
+        _logger.LogError($"{ex.Message}");
         return weightMetric;
       }
       return weightMetric;
@@ -70,7 +75,8 @@ namespace Repository
       }
       catch (Exception ex)
       {
-        // logging
+        _logger.LogError("Couldn't update Weight Metric");
+        _logger.LogError($"{ex.Message}");
         return weightMetric;
       }
       return weightMetric;
@@ -91,7 +97,8 @@ namespace Repository
       }
       catch (Exception ex)
       {
-        // logging
+        _logger.LogError("Couldn't delete Weight Metric");
+        _logger.LogError($"{ex.Message}");
         return weightMetric;
       }
       return weightMetric;
@@ -105,7 +112,8 @@ namespace Repository
       }
       catch (Exception ex)
       {
-        // logging
+        _logger.LogError("Couldn't save Weight Metric");
+        _logger.LogError($"{ex.Message}");
         return false;
       }
       return true;

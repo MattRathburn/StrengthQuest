@@ -13,11 +13,13 @@ namespace Repository
   public class LiftRepository : ILiftRepository
   {
 
-    private AppDbContext _context;
+    private readonly AppDbContext _context;
+    private readonly ILoggerService _logger;
 
-    public LiftRepository(AppDbContext context)
+    public LiftRepository(AppDbContext context, ILoggerService logger)
     {
       _context = context;
+      _logger = logger;
     }
 
     public async Task<IEnumerable<Lift>> GetAllAsync()
@@ -38,8 +40,10 @@ namespace Repository
       }
       catch (Exception ex)
       {
-        // logging
-        lift.Status.Message = $"An error occurred while creating lift: lift.LiftName.Name.ToString()";
+        _logger.LogError($"-------------Error Creating Lift----------------");
+        _logger.LogError($"{ex.Message}");
+        _logger.LogError($"{ex.StackTrace}");
+        lift.Status.Message = $"An error occurred while creating lift: {lift.LiftName.Name}";
         return lift;
       }
       return lift;
@@ -55,7 +59,9 @@ namespace Repository
       }
       catch (Exception ex)
       {
-        // logging
+        _logger.LogError($"-------------Error updating Lift----------------");
+        _logger.LogError($"{ex.Message}");
+        _logger.LogError($"{ex.StackTrace}");
         return lift;
       }
       return lift;

@@ -11,11 +11,13 @@ namespace Services
   public class WeightMetricService : IWeightMetricService
   {
 
-    private IWeightMetricRepository _weightMetricRepository;
+    private readonly IWeightMetricRepository _weightMetricRepository;
+    private readonly ILoggerService _logger;
 
-    public WeightMetricService(IWeightMetricRepository weightMetricRepository)
+    public WeightMetricService(IWeightMetricRepository weightMetricRepository, ILoggerService logger)
     {
       _weightMetricRepository = weightMetricRepository;
+      _logger = logger;
     }
 
     public async Task<WeightMetric> CreateAsync(WeightMetric metric)
