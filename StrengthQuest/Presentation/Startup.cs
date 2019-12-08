@@ -34,8 +34,9 @@ namespace Presentation
       });
 
       services.AddDbContext<AppDbContext>(options =>
-          options.UseSqlServer(
-              Configuration.GetConnectionString("DefaultConnection")));
+      options.UseSqlServer(
+        Configuration["ConnectionStrings:DefaultConnection"]));
+
       services.AddDefaultIdentity<IdentityUser>()
           .AddEntityFrameworkStores<AppDbContext>();
 
@@ -81,6 +82,7 @@ namespace Presentation
       {
         app.UseDeveloperExceptionPage();
         app.UseDatabaseErrorPage();
+        
       }
       else
       {
