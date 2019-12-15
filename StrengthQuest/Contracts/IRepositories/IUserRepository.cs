@@ -4,9 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Contracts
+namespace Contracts.IRepositories
 {
-  public interface IUserRepository : IBaseRepository<User>
+  public interface IUserRepository : IUserBaseRepository<User>
   {
   }
 }

@@ -1,8 +1,10 @@
 using Contracts;
+using Contracts.IRepositories;
 using Contracts.IServices;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,14 +32,14 @@ namespace Services
       return await _liftNameRepository.DeleteAsync(id);
     }
 
-    public async Task<IEnumerable<LiftName>> GetAllAsync()
+    public List<LiftName> GetAll()
     {
-      return await _liftNameRepository.GetAllAsync();
+      return _liftNameRepository.GetAll().ToList();
     }
 
-    public async Task<LiftName> GetAsync(Guid id)
+    public LiftName Get(Guid id)
     {
-      return await _liftNameRepository.GetAsync(id);
+      return _liftNameRepository.Get(id);
     }
 
     public async Task<LiftName> UpdateAsync(LiftName liftName)

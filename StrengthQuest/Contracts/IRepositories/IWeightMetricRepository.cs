@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Contracts
+namespace Contracts.IRepositories
 {
-  public interface IWeightMetricRepository : IBaseRepository<WeightMetric>
+  public interface IWeightMetricRepository : IUserBaseRepository<WeightMetric>
   {
   }
 }

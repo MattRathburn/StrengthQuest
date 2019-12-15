@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Contracts
+namespace Contracts.IRepositories
 {
-  public interface IRoleRepository : IBaseRepository<Role>
+  public interface IRoleRepository : IUserBaseRepository<Role>
   {
   }
 }

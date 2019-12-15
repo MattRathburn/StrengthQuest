@@ -1,4 +1,5 @@
 using Contracts;
+using Contracts.IRepositories;
 using Data;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
@@ -22,14 +23,14 @@ namespace Repository
       _logger = logger;
     }
 
-    public async Task<IEnumerable<LiftName>> GetAllAsync()
+    public IEnumerable<LiftName> GetAll()
     {
-      return await _context.LiftNames.ToListAsync();
+      return _context.LiftNames.ToList();
     }
 
-    public async Task<LiftName> GetAsync(Guid id)
+    public LiftName Get(Guid id)
     {
-      return await _context.LiftNames.FindAsync(id);
+      return _context.LiftNames.Find(id);
     }
 
     public async Task<LiftName> CreateAsync(LiftName liftName)

@@ -1,4 +1,5 @@
 using Contracts;
+using Contracts.IRepositories;
 using Data;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
@@ -22,17 +23,20 @@ namespace Repository
       _logger = logger;
     }
 
-    public async Task<IEnumerable<Lift>> GetAllAsync()
+    public IEnumerable<Lift> GetAll(string uid)
     {
-      return await _context.Lifts.ToListAsync();
+      return _context.Lifts
+        .Where(x => x.User.Id == uid);
     }
 
-    public async Task<Lift> GetAsync(Guid id)
+    public IEnumerable<Lift> Get(Guid id, string uid)
     {
-      return await _context.Lifts.FindAsync(id);
+      return _context.Lifts
+        .Where(x => x.User.Id == uid)
+        .Where(x => x.Id == id);
     }
 
-    public async Task<Lift> CreateAsync(Lift lift)
+    public async Task<Lift> CreateAsync(Lift lift, string uid)
     {
       try
       {
@@ -50,7 +54,7 @@ namespace Repository
       
     }
 
-    public async Task<Lift> UpdateAsync(Lift lift)
+    public async Task<Lift> UpdateAsync(Lift lift, string uid)
     {
       try
       {
@@ -67,7 +71,7 @@ namespace Repository
       return lift;
     }
 
-    public async Task<Lift> DeleteAsync(Guid id)
+    public async Task<Lift> DeleteAsync(Guid id, string uid)
     {
       //  There needs to be a better way to return objects
       //  if something goes wrong

@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Contracts
+namespace Contracts.IRepositories
 {
-  public interface ILiftSequenceRepository : IBaseRepository<LiftSequence>
+  public interface ILiftSequenceRepository : IUserBaseRepository<LiftSequence>
   {
   }
 }

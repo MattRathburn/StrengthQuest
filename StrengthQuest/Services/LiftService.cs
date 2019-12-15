@@ -1,10 +1,12 @@
 using Contracts;
+using Contracts.IRepositories;
 using Contracts.IServices;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Services
 {
@@ -19,29 +21,29 @@ namespace Services
       _logger = logger;
     }
 
-    public async Task<IEnumerable<Lift>> GetAllAsync()
+    public List<Lift> GetAll(string uid)
     {
-      return await _liftRepository.GetAllAsync();
+      return _liftRepository.GetAll(uid).ToList();
     }
 
-    public async Task<Lift> GetAsync(Guid id)
+    public List<Lift> Get(Guid id, string uid)
     {
-      return await _liftRepository.GetAsync(id);
+      return _liftRepository.Get(id, uid).ToList();
     }
 
-    public async Task<Lift> CreateAsync(Lift lift)
+    public async Task<Lift> CreateAsync(Lift lift, string uid)
     {
-      return await _liftRepository.CreateAsync(lift);
+      return await _liftRepository.CreateAsync(lift, uid);
     }
 
-    public async Task<Lift> UpdateAsync(Lift lift)
+    public async Task<Lift> UpdateAsync(Lift lift, string uid)
     {
-      return await _liftRepository.UpdateAsync(lift);
+      return await _liftRepository.UpdateAsync(lift, uid);
     }
 
-    public async Task<Lift> DeleteAsync(Guid id)
+    public async Task<Lift> DeleteAsync(Guid id, string uid)
     {
-      return await _liftRepository.DeleteAsync(id);
+      return await _liftRepository.DeleteAsync(id, uid);
     }
   }
 }

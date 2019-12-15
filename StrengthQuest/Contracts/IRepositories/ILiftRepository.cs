@@ -3,10 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Contracts
+namespace Contracts.IRepositories
 {
-  public interface ILiftRepository : IBaseRepository<Lift>
+  public interface ILiftRepository : IUserBaseRepository<Lift>
   {
-
   }
 }

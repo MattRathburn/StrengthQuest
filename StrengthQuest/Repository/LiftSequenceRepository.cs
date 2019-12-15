@@ -1,4 +1,5 @@
 using Contracts;
+using Contracts.IRepositories;
 using Data;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
@@ -22,17 +23,20 @@ namespace Repository
       _logger = logger;
     }
 
-    public async Task<IEnumerable<LiftSequence>> GetAllAsync()
+    public IEnumerable<LiftSequence> GetAll(string uid)
     {
-      return await _context.LiftSequences.ToListAsync();
+      return _context.LiftSequences
+        .Where(x => x.User.Id == uid);
     }
 
-    public async Task<LiftSequence> GetAsync(Guid id)
+    public IEnumerable<LiftSequence> Get(Guid id, string uid)
     {
-      return await _context.LiftSequences.FindAsync(id);
+      return _context.LiftSequences
+        .Where(x => x.User.Id == uid)
+        .Where(x => x.Id == id);
     }
 
-    public async Task<LiftSequence> CreateAsync(LiftSequence liftSequence)
+    public async Task<LiftSequence> CreateAsync(LiftSequence liftSequence, string uid)
     {
       try
       {
@@ -46,7 +50,7 @@ namespace Repository
       return liftSequence;
     }
 
-    public async Task<LiftSequence> UpdateAsync(LiftSequence liftSequence)
+    public async Task<LiftSequence> UpdateAsync(LiftSequence liftSequence, string uid)
     {
       try
       {
@@ -61,7 +65,7 @@ namespace Repository
       return liftSequence;
     }
 
-    public async Task<LiftSequence> DeleteAsync(Guid id)
+    public async Task<LiftSequence> DeleteAsync(Guid id, string uid)
     {
 
       var liftSequence = await _context.LiftSequences.FindAsync(id);

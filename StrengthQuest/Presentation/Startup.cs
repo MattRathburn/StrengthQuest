@@ -11,6 +11,10 @@ using Data;
 using Services.LoggerService;
 using System.IO;
 using Contracts;
+using Contracts.IServices;
+using Services;
+using Repository;
+using Contracts.IRepositories;
 
 namespace Presentation
 {
@@ -36,6 +40,7 @@ namespace Presentation
       services.AddDbContext<AppDbContext>(options =>
       options.UseSqlServer(
         Configuration["ConnectionStrings:DefaultConnection"]));
+        //Configuration.GetConnectionString("DefaultConnection")));
 
       services.AddDefaultIdentity<IdentityUser>()
           .AddEntityFrameworkStores<AppDbContext>();
@@ -70,6 +75,8 @@ namespace Presentation
 
       services.AddSingleton<IConfiguration>(Configuration);
       services.AddSingleton<ILoggerService, LoggerService>();
+      services.AddTransient<ILiftService, LiftService>();
+      services.AddTransient<ILiftRepository, LiftRepository>();
       services.AddTransient<AppDbContext>();
 
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

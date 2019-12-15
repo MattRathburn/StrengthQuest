@@ -1,4 +1,5 @@
 using Contracts;
+using Contracts.IRepositories;
 using Data;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
@@ -22,26 +23,12 @@ namespace Repository
       _logger = logger;
     }
 
-    public async Task<IEnumerable<WeightMetric>> GetAllAsync()
+    public IEnumerable<WeightMetric> GetAll(string uid)
     {
       try
       {
-        return await _context.WeightMetrics.ToListAsync();
-      }
-      catch (Exception ex)
-      {
-        _logger.LogError("Couldn't get Weight Metric");
-        _logger.LogError($"{ex.Message}");
-        return null;
-      }
-
-    }
-
-    public async Task<WeightMetric> GetAsync(Guid id)
-    {
-      try
-      {
-        return await _context.WeightMetrics.FindAsync(id);
+        return _context.WeightMetrics
+          .Where(x => x.User.Id == uid);
       }
       catch (Exception ex)
       {
@@ -51,7 +38,23 @@ namespace Repository
       }
     }
 
-    public async Task<WeightMetric> CreateAsync(WeightMetric weightMetric)
+    public IEnumerable<WeightMetric> Get(Guid id, string uid)
+    {
+      try
+      {
+        return _context.WeightMetrics
+          .Where(x => x.User.Id == uid)
+          .Where(x => x.Id == id);
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError("Couldn't get Weight Metric");
+        _logger.LogError($"{ex.Message}");
+        return null;
+      }
+    }
+
+    public async Task<WeightMetric> CreateAsync(WeightMetric weightMetric, string uid)
     {
       try
       {
@@ -66,7 +69,7 @@ namespace Repository
       return weightMetric;
     }
 
-    public async Task<WeightMetric> UpdateAsync(WeightMetric weightMetric)
+    public async Task<WeightMetric> UpdateAsync(WeightMetric weightMetric, string uid)
     {
       try
       {
@@ -82,7 +85,7 @@ namespace Repository
       return weightMetric;
     }
 
-    public async Task<WeightMetric> DeleteAsync(Guid id)
+    public async Task<WeightMetric> DeleteAsync(Guid id, string uid)
     {
       var weightMetric = await _context.WeightMetrics.FindAsync(id);
       if(weightMetric == null)
