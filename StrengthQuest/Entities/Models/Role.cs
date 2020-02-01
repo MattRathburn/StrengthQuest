@@ -21,7 +21,5 @@ namespace Entities.Models
       this.Description = description;
     }
 
-    [NotMapped]
-    public ReturnStatus Status { get; set; }
   }
 }

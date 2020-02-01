@@ -1,23 +1,50 @@
-use StrengthQuestTest
-go
+USE StrengthQuestTest
+GO
 
-INSERT INTO dbo.LiftNames VALUES (NEWID(), 'Bench Press')
-INSERT INTO dbo.LiftNames VALUES (NEWID(), 'Overhead Press')
-INSERT INTO dbo.LiftNames VALUES (NEWID(), 'Squat')
-INSERT INTO dbo.LiftNames VALUES (NEWID(), 'Bent Over Row')
+DECLARE @LiftNameId1 nvarchar(256);
+DECLARE @LiftNameId2 nvarchar(256);
+DECLARE @LiftNameId3 nvarchar(256);
+DECLARE @LiftNameId4 nvarchar(256);
 
-INSERT INTO dbo.WeightMetrics VALUES (NEWID(), 1, 'becebb66-d5f5-459f-86df-16688100c35d')
+DECLARE @LiftTypeId1 nvarchar(256);
+DECLARE @LiftTypeId2 nvarchar(256);
+DECLARE @LiftTypeId3 nvarchar(256);
 
-INSERT INTO dbo.LiftTypes VALUES (NEWID(), 'Lower')
-INSERT INTO dbo.LiftTypes VALUES (NEWID(), 'Push')
-INSERT INTO dbo.LiftTypes VALUES (NEWID(), 'Pull')
+DECLARE @LiftId1 nvarchar(256);
+DECLARE @LiftId2 nvarchar(256);
+DECLARE @LiftId3 nvarchar(256);
+DECLARE @LiftId4 nvarchar(256);
 
-INSERT INTO Lifts VALUES (NEWID(), 200, 1, 'becebb66-d5f5-459f-86df-16688100c35d', '2C75DBF3-4DBB-4783-BBF1-A596C1869005', '1C7F8786-F980-48EB-8378-7EB4CA348AEA')
-INSERT INTO Lifts VALUES (NEWID(), 200, 1, 'becebb66-d5f5-459f-86df-16688100c35d', '2726C6AA-0B02-4E01-88C2-9940B2FB5A76', '6E77CD11-B63D-489C-815C-C442E29B7FE9')
-INSERT INTO Lifts VALUES (NEWID(), 200, 1, 'becebb66-d5f5-459f-86df-16688100c35d', '07034B64-B31C-4B53-B837-EB7AB433B48D', 'E9D50C96-F748-4AC8-B055-BD53520608D7')
-INSERT INTO Lifts VALUES (NEWID(), 200, 1, 'becebb66-d5f5-459f-86df-16688100c35d', 'A51144DA-FDBB-4349-9690-F7D4EC58917D', '6E77CD11-B63D-489C-815C-C442E29B7FE9')
+SET @LiftNameId1 = NEWID();
+SET @LiftNameId2 = NEWID();
+SET @LiftNameId3 = NEWID();
 
-INSERT INTO LiftSequences VALUES (NEWID(), 1, 'becebb66-d5f5-459f-86df-16688100c35d', '707664C9-BD09-4A47-A6BD-0B59A22F005F')
-INSERT INTO LiftSequences VALUES (NEWID(), 1, 'becebb66-d5f5-459f-86df-16688100c35d', '32902A21-4083-4A3D-905D-2691A733EF0F')
-INSERT INTO LiftSequences VALUES (NEWID(), 1, 'becebb66-d5f5-459f-86df-16688100c35d', 'FAEF442C-1706-400B-875C-BADAC1962E49')
-INSERT INTO LiftSequences VALUES (NEWID(), 1, 'becebb66-d5f5-459f-86df-16688100c35d', '183B93BD-D35F-4B89-A485-EC6D5BBB080D')
+SET @LiftTypeId1 = NEWID();
+SET @LiftTypeId2 = NEWID();
+SET @LiftTypeId3 = NEWID();
+
+SET @LiftId1 = NEWID();
+SET @LiftId2 = NEWID();
+SET @LiftId3 = NEWID();
+SET @LiftId4 = NEWID();
+
+INSERT INTO dbo.LiftNames VALUES (@LiftNameId1, 'Bench Press')
+INSERT INTO dbo.LiftNames VALUES (@LiftNameId2, 'Overhead Press')
+INSERT INTO dbo.LiftNames VALUES (@LiftNameId3, 'Squat')
+INSERT INTO dbo.LiftNames VALUES (@LiftNameId4, 'Bent Over Row')
+
+INSERT INTO dbo.WeightMetrics VALUES (NEWID(), 1, 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd')
+
+INSERT INTO dbo.LiftTypes VALUES (@LiftTypeId1, 'Lower')
+INSERT INTO dbo.LiftTypes VALUES (@LiftTypeId2, 'Push')
+INSERT INTO dbo.LiftTypes VALUES (@LiftTypeId3, 'Pull')
+
+INSERT INTO Lifts VALUES (@LiftId1, 200, 1, GETDATE(), 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd', @LiftNameId3, @LiftTypeId1)
+INSERT INTO Lifts VALUES (@LiftId2, 200, 1, GETDATE(), 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd', @LiftNameId2, @LiftTypeId2)
+INSERT INTO Lifts VALUES (@LiftId3, 200, 1, GETDATE(), 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd', @LiftNameId1, @LiftTypeId2)
+INSERT INTO Lifts VALUES (@LiftId4, 200, 1, GETDATE(), 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd', @LiftNameId4, @LiftTypeId3)
+
+INSERT INTO LiftSequences VALUES (NEWID(), 1, 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd', @LiftId1)
+INSERT INTO LiftSequences VALUES (NEWID(), 1, 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd', @LiftId2)
+INSERT INTO LiftSequences VALUES (NEWID(), 1, 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd', @LiftId3)
+INSERT INTO LiftSequences VALUES (NEWID(), 1, 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd', @LiftId4)

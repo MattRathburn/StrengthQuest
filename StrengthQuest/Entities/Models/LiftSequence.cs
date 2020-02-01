@@ -7,15 +7,13 @@ namespace Entities.Models
 {
   public class LiftSequence
   {
-    public Guid Id { get; set; }
+    public string Id { get; set; }
 
     public int Sequence { get; set; }
 
-    public User User { get; set; }
+    public virtual User User { get; set; }
 
-    public Lift Lift { get; set; }
+    public virtual Lift Lift { get; set; }
 
-    [NotMapped]
-    public ReturnStatus Status { get; set; }
   }
 }

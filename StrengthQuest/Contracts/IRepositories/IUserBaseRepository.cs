@@ -9,10 +9,9 @@ namespace Contracts.IRepositories
   public interface IUserBaseRepository<T> : IDisposable
   {
     IEnumerable<T> GetAll(string uid);
-    IEnumerable<T> Get(Guid id, string uid);
+    //T Get(string id, string uid);
     Task<T> CreateAsync(T type, string uid);
     Task<T> UpdateAsync(T type, string uid);
-    Task<T> DeleteAsync(Guid id, string uid);
-    Task<bool> SaveAsync();
+    Task<T> DeleteAsync(string id, string uid);
   }
 }

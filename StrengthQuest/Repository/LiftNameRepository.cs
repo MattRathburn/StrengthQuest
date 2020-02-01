@@ -25,12 +25,17 @@ namespace Repository
 
     public IEnumerable<LiftName> GetAll()
     {
-      return _context.LiftNames.ToList();
+      return _context.LiftNames.AsEnumerable();
     }
 
-    public LiftName Get(Guid id)
+    public LiftName Get(string id)
     {
       return _context.LiftNames.Find(id);
+    }
+
+    public LiftName GetByName(string name)
+    {
+      return _context.LiftNames.FirstOrDefault(n => n.Name == name);
     }
 
     public async Task<LiftName> CreateAsync(LiftName liftName)
@@ -64,13 +69,12 @@ namespace Repository
 
     }
 
-    public async Task<LiftName> DeleteAsync(Guid id)
+    public async Task<LiftName> DeleteAsync(string id)
     {
       var liftName = await _context.LiftNames.FindAsync(id);
 
       if(liftName == null)
       {
-        liftName.Status.Message = "Unable to find LiftName";
         return liftName;
       }
 
@@ -85,20 +89,6 @@ namespace Repository
       }
       return liftName;
 
-    }
-
-    public async Task<bool> SaveAsync()
-    {
-      try
-      {
-        await _context.SaveChangesAsync();
-      }
-      catch (Exception ex)
-      {
-        // logging
-        return false;
-      }
-      return true;
     }
 
     #region IDisposable Support

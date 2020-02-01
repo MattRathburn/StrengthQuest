@@ -8,9 +8,7 @@ namespace Entities.Models
 {
   public class User : IdentityUser
   {
-    public ICollection<Lift> Lifts { get; set; }
+    public virtual ICollection<Lift> Lifts { get; set; }
 
-    [NotMapped]
-    public ReturnStatus Status { get; set; }
   }
 }

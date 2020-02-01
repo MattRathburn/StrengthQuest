@@ -21,14 +21,16 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entities.Models.Lift", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Date");
 
                     b.Property<bool>("IsMainLift");
 
-                    b.Property<Guid?>("LiftNameId");
+                    b.Property<string>("LiftNameId");
 
-                    b.Property<Guid?>("LiftTypeId");
+                    b.Property<string>("LiftTypeId");
 
                     b.Property<float>("MaxLift");
 
@@ -47,7 +49,7 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entities.Models.LiftName", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
@@ -59,10 +61,10 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entities.Models.LiftSequence", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("LiftId");
+                    b.Property<string>("LiftId");
 
                     b.Property<int>("Sequence");
 
@@ -79,7 +81,7 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entities.Models.LiftType", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
@@ -91,7 +93,7 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entities.Models.WeightMetric", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<bool>("IsPound");

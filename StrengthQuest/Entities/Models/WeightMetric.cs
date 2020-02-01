@@ -7,13 +7,11 @@ namespace Entities.Models
 {
   public class WeightMetric
   {
-    public Guid Id { get; set; }
+    public string Id { get; set; }
 
     public bool IsPound { get; set; }
 
-    public User User { get; set; }
+    public virtual User User { get; set; }
 
-    [NotMapped]
-    public ReturnStatus Status { get; set; }
   }
 }

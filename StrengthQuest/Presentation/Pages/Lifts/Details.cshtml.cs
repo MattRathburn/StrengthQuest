@@ -21,7 +21,7 @@ namespace Presentation.Pages.Lifts
 
         public Lift Lift { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
             {

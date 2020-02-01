@@ -9,19 +9,19 @@ namespace Entities.Models
   public class Lift
   {
     [Key]
-    public Guid Id { get; set; }
+    public string Id { get; set; }
 
     public float MaxLift { get; set; }
 
     public bool IsMainLift { get; set; }
 
-    public User User { get; set; }
+    public DateTime Date { get; set; }
 
-    public LiftName LiftName { get; set; }
+    public virtual User User { get; set; }
 
-    public LiftType LiftType { get; set; }
+    public virtual LiftName LiftName { get; set; }
 
-    [NotMapped]
-    public ReturnStatus Status { get; set; }
+    public virtual LiftType LiftType { get; set; }
+
   }
 }

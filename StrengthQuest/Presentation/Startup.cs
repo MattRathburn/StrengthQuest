@@ -38,7 +38,8 @@ namespace Presentation
       });
 
       services.AddDbContext<AppDbContext>(options =>
-      options.UseSqlServer(
+      options.UseLazyLoadingProxies()
+        .UseSqlServer(
         Configuration["ConnectionStrings:DefaultConnection"]));
         //Configuration.GetConnectionString("DefaultConnection")));
 
@@ -77,6 +78,10 @@ namespace Presentation
       services.AddSingleton<ILoggerService, LoggerService>();
       services.AddTransient<ILiftService, LiftService>();
       services.AddTransient<ILiftRepository, LiftRepository>();
+      services.AddTransient<ILiftNameService, LiftNameService>();
+      services.AddTransient<ILiftNameRepository, LiftNameRepository>();
+      services.AddTransient<ILiftTypeService, LiftTypeService>();
+      services.AddTransient<ILiftTypeRepository, LiftTypeRepository>();
       services.AddTransient<AppDbContext>();
 
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

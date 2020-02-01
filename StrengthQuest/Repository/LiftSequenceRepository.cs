@@ -29,7 +29,7 @@ namespace Repository
         .Where(x => x.User.Id == uid);
     }
 
-    public IEnumerable<LiftSequence> Get(Guid id, string uid)
+    public IEnumerable<LiftSequence> Get(string id, string uid)
     {
       return _context.LiftSequences
         .Where(x => x.User.Id == uid)
@@ -65,7 +65,7 @@ namespace Repository
       return liftSequence;
     }
 
-    public async Task<LiftSequence> DeleteAsync(Guid id, string uid)
+    public async Task<LiftSequence> DeleteAsync(string id, string uid)
     {
 
       var liftSequence = await _context.LiftSequences.FindAsync(id);
@@ -84,21 +84,6 @@ namespace Repository
         return liftSequence;
       }
       return liftSequence;
-    }
-
-    public async Task<bool> SaveAsync()
-    {
-      try
-      {
-        await _context.SaveChangesAsync();
-      }
-      catch(Exception ex)
-      {
-        // logging
-        return false;
-      }
-      return true;
-
     }
 
     #region IDisposable Support

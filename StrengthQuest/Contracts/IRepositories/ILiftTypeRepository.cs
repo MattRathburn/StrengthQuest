@@ -9,5 +9,6 @@ namespace Contracts.IRepositories
 {
   public interface ILiftTypeRepository : IBaseRepository<LiftType>
   {
+    LiftType GetByName(string name);
   }
 }

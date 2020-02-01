@@ -7,5 +7,6 @@ namespace Contracts.IRepositories
 {
   public interface ILiftRepository : IUserBaseRepository<Lift>
   {
+    Lift Get(string id, string uid);
   }
 }

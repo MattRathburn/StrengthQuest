@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Contracts.IRepositories
 {
-  public interface ILiftSequenceRepository : IUserBaseRepository<LiftSequence>
+  public interface ILiftSequenceRepository : IUserBaseRepository<LiftSequence> 
   {
+    IEnumerable<LiftSequence> Get(string id, string uid);
   }
 }

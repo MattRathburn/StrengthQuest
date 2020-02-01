@@ -27,7 +27,7 @@ namespace Services
       return await _liftNameRepository.CreateAsync(liftName);
     }
 
-    public async Task<LiftName> DeleteAsync(Guid id)
+    public async Task<LiftName> DeleteAsync(string id)
     {
       return await _liftNameRepository.DeleteAsync(id);
     }
@@ -37,7 +37,7 @@ namespace Services
       return _liftNameRepository.GetAll().ToList();
     }
 
-    public LiftName Get(Guid id)
+    public LiftName Get(string id)
     {
       return _liftNameRepository.Get(id);
     }

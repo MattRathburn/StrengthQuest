@@ -27,7 +27,7 @@ namespace Services
       return await _weightMetricRepository.CreateAsync(metric, uid);
     }
 
-    public async Task<WeightMetric> DeleteAsync(Guid id, string uid)
+    public async Task<WeightMetric> DeleteAsync(string id, string uid)
     {
       return await _weightMetricRepository.DeleteAsync(id, uid);
     }
@@ -37,9 +37,9 @@ namespace Services
       return _weightMetricRepository.GetAll(uid).ToList();
     }
 
-    public List<WeightMetric> Get(Guid id, string uid)
+    public async Task<WeightMetric> Get(string uid)
     {
-      return _weightMetricRepository.Get(id, uid).ToList();
+      return await _weightMetricRepository.Get(uid);
     }
 
     public async Task<WeightMetric> UpdateAsync(WeightMetric metric, string uid)

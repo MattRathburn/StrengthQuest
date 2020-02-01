@@ -8,10 +8,9 @@ namespace Contracts.IRepositories
   public interface IBaseRepository<T> : IDisposable
   {
     IEnumerable<T> GetAll();
-    T Get(Guid id);
+    T Get(string id);
     Task<T> CreateAsync(T type);
     Task<T> UpdateAsync(T type);
-    Task<T> DeleteAsync(Guid id);
-    Task<bool> SaveAsync();
+    Task<T> DeleteAsync(string id);
   }
 }

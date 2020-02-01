@@ -27,7 +27,7 @@ namespace Services
       return await _liftSequenceRepository.CreateAsync(lift, uid);
     }
 
-    public async Task<LiftSequence> DeleteAsync(Guid id, string userId)
+    public async Task<LiftSequence> DeleteAsync(string id, string userId)
     {
       return await _liftSequenceRepository.DeleteAsync(id, userId);
     }
@@ -37,7 +37,7 @@ namespace Services
       return _liftSequenceRepository.GetAll(userId).ToList();
     }
 
-    public List<LiftSequence> Get(Guid id, string userId)
+    public List<LiftSequence> Get(string id, string userId)
     {
       return _liftSequenceRepository.Get(id, userId).ToList();
     }

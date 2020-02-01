@@ -7,11 +7,9 @@ namespace Entities.Models
 {
   public class LiftName
   {
-    public Guid Id { get; set; }
+    public string Id { get; set; }
 
     public string Name { get; set; }
 
-    [NotMapped]
-    public ReturnStatus Status { get; set; }
   }
 }

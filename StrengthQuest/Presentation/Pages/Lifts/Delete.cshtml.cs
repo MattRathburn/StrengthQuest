@@ -22,7 +22,7 @@ namespace Presentation.Pages.Lifts
         [BindProperty]
         public Lift Lift { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
             {
@@ -38,7 +38,7 @@ namespace Presentation.Pages.Lifts
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(Guid? id)
+        public async Task<IActionResult> OnPostAsync(string id)
         {
             if (id == null)
             {

@@ -38,13 +38,13 @@ namespace Repository
       }
     }
 
-    public IEnumerable<WeightMetric> Get(Guid id, string uid)
+    public async Task<WeightMetric> Get(string uid)
     {
       try
       {
-        return _context.WeightMetrics
-          .Where(x => x.User.Id == uid)
-          .Where(x => x.Id == id);
+        WeightMetric wm = await _context.WeightMetrics
+          .FirstOrDefaultAsync(w => w.User.Id == uid);
+        return wm;
       }
       catch (Exception ex)
       {
@@ -85,12 +85,11 @@ namespace Repository
       return weightMetric;
     }
 
-    public async Task<WeightMetric> DeleteAsync(Guid id, string uid)
+    public async Task<WeightMetric> DeleteAsync(string id, string uid)
     {
       var weightMetric = await _context.WeightMetrics.FindAsync(id);
       if(weightMetric == null)
       {
-        weightMetric.Status.Message = "Unable to find weightMetric";
         return weightMetric;
       }
       try
@@ -105,22 +104,6 @@ namespace Repository
         return weightMetric;
       }
       return weightMetric;
-    }
-
-    public async Task<bool> SaveAsync()
-    {
-      try
-      {
-        await _context.SaveChangesAsync();
-      }
-      catch (Exception ex)
-      {
-        _logger.LogError("Couldn't save Weight Metric");
-        _logger.LogError($"{ex.Message}");
-        return false;
-      }
-      return true;
-
     }
 
     #region IDisposable Support

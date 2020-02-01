@@ -23,7 +23,7 @@ namespace Presentation.Pages.Lifts
         [BindProperty]
         public Lift Lift { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
             {
@@ -67,7 +67,7 @@ namespace Presentation.Pages.Lifts
             return RedirectToPage("./Index");
         }
 
-        private bool LiftExists(Guid id)
+        private bool LiftExists(string id)
         {
             return _context.Lifts.Any(e => e.Id == id);
         }

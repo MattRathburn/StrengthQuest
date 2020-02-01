@@ -8,6 +8,8 @@ using Contracts.IServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using System;
+using ViewModels;
+using Contracts;
 
 namespace Presentation.Pages.Lifts
 {
@@ -15,22 +17,26 @@ namespace Presentation.Pages.Lifts
   public class IndexModel : PageModel
   {
     private readonly ILiftService _service;
+    private readonly ILiftNameService _liftNameService;
     private readonly UserManager<IdentityUser> _userManager;
+    private readonly ILoggerService _logger;
 
-    public IndexModel(ILiftService service, UserManager<IdentityUser> userManager)
+    public IndexModel(ILiftService service, ILiftNameService liftNameService, UserManager<IdentityUser> userManager, ILoggerService logger)
     {
       _service = service;
       _userManager = userManager;
+      _liftNameService = liftNameService;
+      _logger = logger;
     }
 
-    public List<Lift> Lift { get; set; }
+    public IList<LiftViewModel> LiftViewModel { get; set; }
 
     public async Task OnGetAsync()
     {
       try
       {
         var user = await _userManager.GetUserAsync(HttpContext.User);
-        Lift = _service.GetAll(user.Id);
+        LiftViewModel = _service.GetAll(user.Id);
       }
       catch(Exception ex)
       {

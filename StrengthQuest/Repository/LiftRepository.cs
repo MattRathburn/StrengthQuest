@@ -29,11 +29,10 @@ namespace Repository
         .Where(x => x.User.Id == uid);
     }
 
-    public IEnumerable<Lift> Get(Guid id, string uid)
+    public Lift Get(string id, string uid)
     {
       return _context.Lifts
-        .Where(x => x.User.Id == uid)
-        .Where(x => x.Id == id);
+        .FirstOrDefault(x => x.User.Id == uid && x.Id == id);
     }
 
     public async Task<Lift> CreateAsync(Lift lift, string uid)
@@ -41,17 +40,15 @@ namespace Repository
       try
       {
         await _context.Lifts.AddAsync(lift);
+        return lift;
       }
       catch (Exception ex)
       {
         _logger.LogError($"-------------Error Creating Lift----------------");
         _logger.LogError($"{ex.Message}");
         _logger.LogError($"{ex.StackTrace}");
-        lift.Status.Message = $"An error occurred while creating lift: {lift.LiftName.Name}";
-        return lift;
-      }
-      return lift;
-      
+        return null;
+      }      
     }
 
     public async Task<Lift> UpdateAsync(Lift lift, string uid)
@@ -71,7 +68,7 @@ namespace Repository
       return lift;
     }
 
-    public async Task<Lift> DeleteAsync(Guid id, string uid)
+    public async Task<Lift> DeleteAsync(string id, string uid)
     {
       //  There needs to be a better way to return objects
       //  if something goes wrong
@@ -79,7 +76,6 @@ namespace Repository
       var lift = await _context.Lifts.FindAsync(id);
       if (lift == null)
       {
-        lift.Status.Message = "Unable to find lift";
         return lift;
       }
 
@@ -91,24 +87,9 @@ namespace Repository
       catch (Exception ex)
       {
         // logging
-        lift.Status.Message = "An error occurred while deleting lift";
         return lift;
       }
       return lift;
-    }
-
-    public async Task<bool> SaveAsync()
-    {
-      try
-      {
-        await _context.SaveChangesAsync();
-      }
-      catch(Exception ex)
-      {
-        // logging
-        return false;
-      }
-      return true;
     }
 
     #region IDisposable Support
