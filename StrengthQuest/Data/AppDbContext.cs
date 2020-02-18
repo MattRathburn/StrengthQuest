@@ -8,19 +8,19 @@ using System.Text;
 
 namespace Data
 {
-  public class AppDbContext : IdentityDbContext<IdentityUser>
-  {
-
-    public AppDbContext(DbContextOptions<AppDbContext> options)
-    : base(options)
+    public class AppDbContext : IdentityDbContext<IdentityUser>
     {
+
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
+        {
+        }
+
+        public DbSet<Lift> Lifts { get; set; }
+        public DbSet<LiftName> LiftNames { get; set; }
+        public DbSet<LiftSequence> LiftSequences { get; set; }
+        public DbSet<LiftType> LiftTypes { get; set; }
+        public DbSet<WeightMetric> WeightMetrics { get; set; }
+
     }
-
-    public DbSet<Lift> Lifts { get; set; }
-    public DbSet<LiftName> LiftNames { get; set; }
-    public DbSet<LiftSequence> LiftSequences { get; set; }
-    public DbSet<LiftType> LiftTypes { get; set; }
-    public DbSet<WeightMetric> WeightMetrics { get; set; }
-
-  }
 }

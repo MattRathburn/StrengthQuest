@@ -11,111 +11,111 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-  public class LiftRepository : ILiftRepository
-  {
-
-    private readonly AppDbContext _context;
-    private readonly ILoggerService _logger;
-
-    public LiftRepository(AppDbContext context, ILoggerService logger)
+    public class LiftRepository : ILiftRepository
     {
-      _context = context;
-      _logger = logger;
-    }
 
-    public IEnumerable<Lift> GetAll(string uid)
-    {
-      return _context.Lifts
-        .Where(x => x.User.Id == uid);
-    }
+        private readonly AppDbContext _context;
+        private readonly ILoggerService _logger;
 
-    public Lift Get(string id, string uid)
-    {
-      return _context.Lifts
-        .FirstOrDefault(x => x.User.Id == uid && x.Id == id);
-    }
-
-    public async Task<Lift> CreateAsync(Lift lift, string uid)
-    {
-      try
-      {
-        await _context.Lifts.AddAsync(lift);
-        return lift;
-      }
-      catch (Exception ex)
-      {
-        _logger.LogError($"-------------Error Creating Lift----------------");
-        _logger.LogError($"{ex.Message}");
-        _logger.LogError($"{ex.StackTrace}");
-        return null;
-      }      
-    }
-
-    public async Task<Lift> UpdateAsync(Lift lift, string uid)
-    {
-      try
-      {
-        _context.Entry(lift).State = EntityState.Modified;
-        await _context.SaveChangesAsync();
-      }
-      catch (Exception ex)
-      {
-        _logger.LogError($"-------------Error updating Lift----------------");
-        _logger.LogError($"{ex.Message}");
-        _logger.LogError($"{ex.StackTrace}");
-        return lift;
-      }
-      return lift;
-    }
-
-    public async Task<Lift> DeleteAsync(string id, string uid)
-    {
-      //  There needs to be a better way to return objects
-      //  if something goes wrong
-
-      var lift = await _context.Lifts.FindAsync(id);
-      if (lift == null)
-      {
-        return lift;
-      }
-
-      try
-      {
-        _context.Lifts.Remove(lift);
-        await _context.SaveChangesAsync();
-      }
-      catch (Exception ex)
-      {
-        // logging
-        return lift;
-      }
-      return lift;
-    }
-
-    #region IDisposable Support
-    private bool disposedValue = false; // To detect redundant calls
-
-    protected virtual void Dispose(bool disposing)
-    {
-      if (!disposedValue)
-      {
-        if (disposing)
+        public LiftRepository(AppDbContext context, ILoggerService logger)
         {
-          _context.Dispose();
+            _context = context;
+            _logger = logger;
         }
 
-        disposedValue = true;
-      }
-    }
+        public IEnumerable<Lift> GetAll(string uid)
+        {
+            return _context.Lifts
+              .Where(x => x.User.Id == uid);
+        }
 
-    // This code added to correctly implement the disposable pattern.
-    public void Dispose()
-    {
-      // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-      Dispose(true);
-      // TODO: uncomment the following line if the finalizer is overridden above.
-      GC.SuppressFinalize(this);
+        public Lift Get(string id, string uid)
+        {
+            return _context.Lifts
+              .FirstOrDefault(x => x.User.Id == uid && x.Id == id);
+        }
+
+        public async Task<Lift> CreateAsync(Lift lift, string uid)
+        {
+            try
+            {
+                await _context.Lifts.AddAsync(lift);
+                return lift;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"-------------Error Creating Lift----------------");
+                _logger.LogError($"{ex.Message}");
+                _logger.LogError($"{ex.StackTrace}");
+                return null;
+            }
+        }
+
+        public async Task<Lift> UpdateAsync(Lift lift, string uid)
+        {
+            try
+            {
+                _context.Entry(lift).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"-------------Error updating Lift----------------");
+                _logger.LogError($"{ex.Message}");
+                _logger.LogError($"{ex.StackTrace}");
+                return lift;
+            }
+            return lift;
+        }
+
+        public async Task<Lift> DeleteAsync(string id, string uid)
+        {
+            //  There needs to be a better way to return objects
+            //  if something goes wrong
+
+            var lift = await _context.Lifts.FindAsync(id);
+            if (lift == null)
+            {
+                return lift;
+            }
+
+            try
+            {
+                _context.Lifts.Remove(lift);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                // logging
+                return lift;
+            }
+            return lift;
+        }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
-    #endregion
-  }
 }

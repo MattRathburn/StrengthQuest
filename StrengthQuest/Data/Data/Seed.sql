@@ -1,5 +1,9 @@
-USE StrengthQuestTest
+USE StrengthQuestDev
 GO
+
+DECLARE @UId nvarchar(256);
+
+select Top(1) @UId = id from AspNetUsers
 
 DECLARE @LiftNameId1 nvarchar(256);
 DECLARE @LiftNameId2 nvarchar(256);
@@ -18,6 +22,7 @@ DECLARE @LiftId4 nvarchar(256);
 SET @LiftNameId1 = NEWID();
 SET @LiftNameId2 = NEWID();
 SET @LiftNameId3 = NEWID();
+SET @LiftNameId4 = NEWID();
 
 SET @LiftTypeId1 = NEWID();
 SET @LiftTypeId2 = NEWID();
@@ -33,18 +38,18 @@ INSERT INTO dbo.LiftNames VALUES (@LiftNameId2, 'Overhead Press')
 INSERT INTO dbo.LiftNames VALUES (@LiftNameId3, 'Squat')
 INSERT INTO dbo.LiftNames VALUES (@LiftNameId4, 'Bent Over Row')
 
-INSERT INTO dbo.WeightMetrics VALUES (NEWID(), 1, 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd')
+INSERT INTO dbo.WeightMetrics VALUES (NEWID(), 1, @UId)
 
 INSERT INTO dbo.LiftTypes VALUES (@LiftTypeId1, 'Lower')
 INSERT INTO dbo.LiftTypes VALUES (@LiftTypeId2, 'Push')
 INSERT INTO dbo.LiftTypes VALUES (@LiftTypeId3, 'Pull')
 
-INSERT INTO Lifts VALUES (@LiftId1, 200, 1, GETDATE(), 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd', @LiftNameId3, @LiftTypeId1)
-INSERT INTO Lifts VALUES (@LiftId2, 200, 1, GETDATE(), 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd', @LiftNameId2, @LiftTypeId2)
-INSERT INTO Lifts VALUES (@LiftId3, 200, 1, GETDATE(), 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd', @LiftNameId1, @LiftTypeId2)
-INSERT INTO Lifts VALUES (@LiftId4, 200, 1, GETDATE(), 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd', @LiftNameId4, @LiftTypeId3)
+INSERT INTO Lifts VALUES (@LiftId1, 200, 1, GETDATE(), @UId, @LiftNameId3, @LiftTypeId1)
+INSERT INTO Lifts VALUES (@LiftId2, 200, 1, GETDATE(), @UId, @LiftNameId2, @LiftTypeId2)
+INSERT INTO Lifts VALUES (@LiftId3, 200, 1, GETDATE(), @UId, @LiftNameId1, @LiftTypeId2)
+INSERT INTO Lifts VALUES (@LiftId4, 200, 1, GETDATE(), @UId, @LiftNameId4, @LiftTypeId3)
 
-INSERT INTO LiftSequences VALUES (NEWID(), 1, 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd', @LiftId1)
-INSERT INTO LiftSequences VALUES (NEWID(), 1, 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd', @LiftId2)
-INSERT INTO LiftSequences VALUES (NEWID(), 1, 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd', @LiftId3)
-INSERT INTO LiftSequences VALUES (NEWID(), 1, 'f172e44c-983b-4f1a-a8c4-5f3878c70cbd', @LiftId4)
+INSERT INTO LiftSequences VALUES (NEWID(), 1, @UId, @LiftId1)
+INSERT INTO LiftSequences VALUES (NEWID(), 1, @UId, @LiftId2)
+INSERT INTO LiftSequences VALUES (NEWID(), 1, @UId, @LiftId3)
+INSERT INTO LiftSequences VALUES (NEWID(), 1, @UId, @LiftId4)

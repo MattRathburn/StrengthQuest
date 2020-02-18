@@ -10,41 +10,41 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-  public class LiftSequenceService : ILiftSequenceService
-  {
-
-    private readonly ILiftSequenceRepository _liftSequenceRepository;
-    private readonly ILoggerService _logger;
-
-    public LiftSequenceService(ILiftSequenceRepository liftSequenceRepository, ILoggerService logger)
+    public class LiftSequenceService : ILiftSequenceService
     {
-      _liftSequenceRepository = liftSequenceRepository;
-      _logger = logger;
-    }
 
-    public async Task<LiftSequence> CreateAsync(LiftSequence lift, string uid)
-    {
-      return await _liftSequenceRepository.CreateAsync(lift, uid);
-    }
+        private readonly ILiftSequenceRepository _liftSequenceRepository;
+        private readonly ILoggerService _logger;
 
-    public async Task<LiftSequence> DeleteAsync(string id, string userId)
-    {
-      return await _liftSequenceRepository.DeleteAsync(id, userId);
-    }
+        public LiftSequenceService(ILiftSequenceRepository liftSequenceRepository, ILoggerService logger)
+        {
+            _liftSequenceRepository = liftSequenceRepository;
+            _logger = logger;
+        }
 
-    public List<LiftSequence> GetAll(string userId)
-    {
-      return _liftSequenceRepository.GetAll(userId).ToList();
-    }
+        public async Task<LiftSequence> CreateAsync(LiftSequence lift, string uid)
+        {
+            return await _liftSequenceRepository.CreateAsync(lift, uid);
+        }
 
-    public List<LiftSequence> Get(string id, string userId)
-    {
-      return _liftSequenceRepository.Get(id, userId).ToList();
-    }
+        public async Task<LiftSequence> DeleteAsync(string id, string userId)
+        {
+            return await _liftSequenceRepository.DeleteAsync(id, userId);
+        }
 
-    public async Task<LiftSequence> UpdateAsync(LiftSequence lift, string uid)
-    {
-      return await _liftSequenceRepository.UpdateAsync(lift, uid);
+        public List<LiftSequence> GetAll(string userId)
+        {
+            return _liftSequenceRepository.GetAll(userId).ToList();
+        }
+
+        public List<LiftSequence> Get(string id, string userId)
+        {
+            return _liftSequenceRepository.Get(id, userId).ToList();
+        }
+
+        public async Task<LiftSequence> UpdateAsync(LiftSequence lift, string uid)
+        {
+            return await _liftSequenceRepository.UpdateAsync(lift, uid);
+        }
     }
-  }
 }

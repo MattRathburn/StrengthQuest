@@ -8,24 +8,24 @@ using System.Text;
 
 namespace Data.Models
 {
-  public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
-  {
-    public AppDbContextFactory()
+    public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
+        public AppDbContextFactory()
+        {
 
+        }
+
+        public AppDbContext CreateDbContext(string[] args)
+        {
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+              .SetBasePath(Directory.GetCurrentDirectory())
+              .AddJsonFile(@Directory.GetCurrentDirectory() + "/../Presentation/appsettings.json")
+              .Build();
+            var builder = new DbContextOptionsBuilder<AppDbContext>();
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            builder.UseSqlServer(connectionString);
+            return new AppDbContext(builder.Options);
+
+        }
     }
-
-    public AppDbContext CreateDbContext(string[] args)
-    {
-      IConfigurationRoot configuration = new ConfigurationBuilder()
-        .SetBasePath(Directory.GetCurrentDirectory())
-        .AddJsonFile(@Directory.GetCurrentDirectory() + "/../Presentation/appsettings.json")
-        .Build();
-      var builder = new DbContextOptionsBuilder<AppDbContext>();
-      var connectionString = configuration.GetConnectionString("DefaultConnection");
-      builder.UseSqlServer(connectionString);
-      return new AppDbContext(builder.Options);
-
-    }
-  }
 }

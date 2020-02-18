@@ -6,21 +6,21 @@ using System.Text;
 
 namespace ViewModels
 {
-  public class LiftViewModel
-  {
-    [Display(Name = "Max Lift")]
-    public float MaxLift { get; set; }
+    public class LiftViewModel
+    {
+        [Display(Name = "Max Lift")]
+        public float MaxLift { get; set; }
 
-    public bool IsMainLift { get; set; }
+        public bool IsMainLift { get; set; }
 
-    [Display(Name = "Name")]
-    public string LiftName { get; set; }
+        [Display(Name = "Name")]
+        public string LiftName { get; set; }
 
-    [Display(Name = "Type")]
-    public string LiftType { get; set; }
+        [Display(Name = "Type")]
+        public string LiftType { get; set; }
 
-    public DateTime Date { get; set; }
+        public DateTime Date { get; set; }
 
-    public Lift Lift { get; set; }
-  }
+        public Lift Lift { get; set; }
+    }
 }

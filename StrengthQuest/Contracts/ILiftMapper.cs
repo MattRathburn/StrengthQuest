@@ -1,11 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Contracts
 {
-    public interface IUnitOfWork
+    public interface ILiftMapper
     {
-        void SaveChangesAsync();
     }
 }

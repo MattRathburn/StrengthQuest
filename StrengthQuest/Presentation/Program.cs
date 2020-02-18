@@ -11,25 +11,25 @@ using NLog.Web;
 
 namespace Presentation
 {
-  public class Program
-  {
-    public static void Main(string[] args)
+    public class Program
     {
-      var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+        public static void Main(string[] args)
+        {
+            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
 
-      CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args).Build().Run();
 
-      NLog.LogManager.Shutdown();
+            NLog.LogManager.Shutdown();
+        }
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.SetMinimumLevel(LogLevel.Trace);
+                })
+                .UseNLog();
     }
-
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        WebHost.CreateDefaultBuilder(args)
-            .UseStartup<Startup>()
-            .ConfigureLogging(logging =>
-            {
-              logging.ClearProviders();
-              logging.SetMinimumLevel(LogLevel.Trace);
-            })
-            .UseNLog();
-  }
 }

@@ -10,41 +10,41 @@ using Entities.Models;
 
 namespace Services
 {
-  public class LiftTypeService : ILiftTypeService
-  {
-
-    private readonly ILiftTypeRepository _liftTypeRepository;
-    private readonly ILoggerService _logger;
-
-    public LiftTypeService(ILiftTypeRepository liftTypeRepository, ILoggerService logger)
+    public class LiftTypeService : ILiftTypeService
     {
-      _liftTypeRepository = liftTypeRepository;
-      _logger = logger;
-    }
 
-    public async Task<LiftType> CreateAsync(LiftType lift)
-    {
-      return await _liftTypeRepository.CreateAsync(lift);
-    }
+        private readonly ILiftTypeRepository _liftTypeRepository;
+        private readonly ILoggerService _logger;
 
-    public async Task<LiftType> DeleteAsync(string id)
-    {
-      return await _liftTypeRepository.DeleteAsync(id);
-    }
+        public LiftTypeService(ILiftTypeRepository liftTypeRepository, ILoggerService logger)
+        {
+            _liftTypeRepository = liftTypeRepository;
+            _logger = logger;
+        }
 
-    public  List<LiftType> GetAll()
-    {
-      return _liftTypeRepository.GetAll().ToList();
-    }
+        public async Task<LiftType> CreateAsync(LiftType lift)
+        {
+            return await _liftTypeRepository.CreateAsync(lift);
+        }
 
-    public LiftType Get(string id)
-    {
-      return _liftTypeRepository.Get(id);
-    }
+        public async Task<LiftType> DeleteAsync(string id)
+        {
+            return await _liftTypeRepository.DeleteAsync(id);
+        }
 
-    public async Task<LiftType> UpdateAsync(LiftType lift)
-    {
-      return await _liftTypeRepository.UpdateAsync(lift);
+        public List<LiftType> GetAll()
+        {
+            return _liftTypeRepository.GetAll().ToList();
+        }
+
+        public LiftType Get(string id)
+        {
+            return _liftTypeRepository.Get(id);
+        }
+
+        public async Task<LiftType> UpdateAsync(LiftType lift)
+        {
+            return await _liftTypeRepository.UpdateAsync(lift);
+        }
     }
-  }
 }

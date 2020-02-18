@@ -2,164 +2,141 @@
 @model Presentation.Pages.Lifts.IndexModel
 
 @{
-  ViewData["Title"] = "Index";
-  Layout = "~/Pages/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
 
 <p>
-  <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Create New</a>
 </p>
 <table class="table">
-  <thead>
-    <tr>
-      <th>
-        Chest
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftName)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.LiftViewModel[0].IsMainLift)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftType)
-      </th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach (var item in Model.LiftViewModel.Where(x => x.LiftName == "Bench Press"))
-    {
-      <tr>
-        <td>
-          @Html.DisplayFor(modelItem => item.MaxLift)
-        </td>
-        <td>
-          @Html.DisplayFor(modelItem => item.IsMainLift)
-        </td>
-        <td>
-          <a asp-page="./Edit" asp-route-id="@item.Lift.Id">Edit</a> |
-          <a asp-page="./Details" asp-route-id="@item.Lift.Id">Details</a> |
-          <a asp-page="./Delete" asp-route-id="@item.Lift.Id">Delete</a>
-        </td>
-      </tr>
-    }
-  </tbody>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LiftViewModel[0].MaxLift)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LiftViewModel[0].IsMainLift)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.LiftViewModel.Where(x => x.LiftType == "Push"))
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LiftType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LiftName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxLift)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsMainLift)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Lift.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Lift.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Lift.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
 </table>
 <table class="table">
-  <thead>
-    @*<tr>
-      <th>
-        Back
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.LiftViewModel.Lift[0].LiftName)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.LiftViewModel.Lift[0].IsMainLift)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.LiftViewModel.Lift[0].LiftType)
-      </th>
-      <th></th>
-    </tr>*@
-  </thead>
-  <tbody>
-    @*@foreach (var item in Model.LiftViewModel)
-    {
-      <tr>
-        <td>
-          @Html.DisplayFor(modelItem => item.MaxLift)
-        </td>
-        <td>
-          @Html.DisplayFor(modelItem => item.IsMainLift)
-        </td>
-        <td>
-          <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-          <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-          <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-        </td>
-      </tr>
-    }*@
-  </tbody>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LiftViewModel[0].MaxLift)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LiftViewModel[0].IsMainLift)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.LiftViewModel.Where(x => x.LiftType == "Pull"))
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LiftType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LiftName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxLift)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsMainLift)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Lift.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Lift.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Lift.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
 </table>
 <table class="table">
-  <thead>
-    @*<tr>
-      <th>
-        Shoulders
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.Lift[0].LiftName)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.Lift[0].IsMainLift)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.Lift[0].LiftType)
-      </th>
-      <th></th>
-    </tr>*@
-  </thead>
-  <tbody>
-    @*@foreach (var item in Model.Lift)
-    {
-      <tr>
-        <td>
-          @Html.DisplayFor(modelItem => item.MaxLift)
-        </td>
-        <td>
-          @Html.DisplayFor(modelItem => item.IsMainLift)
-        </td>
-        <td>
-          <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-          <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-          <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-        </td>
-      </tr>
-    }*@
-  </tbody>
-</table>
-<table class="table">
-  <thead>
-    @*<tr>
-      <th>
-        Legs
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.Lift[0].LiftName)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.Lift[0].IsMainLift)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.Lift[0].LiftType)
-      </th>
-      <th></th>
-    </tr>*@
-  </thead>
-  <tbody>
-    @*@foreach (var item in Model.Lift)
-    {
-    <tr>
-      <td></td>
-      <td>
-        @Html.DisplayFor(modelItem => item.LiftName.Name.Where(x => x.Equals("Legs")))
-      </td>
-      <td>
-        @Html.DisplayFor(modelItem => item.IsMainLift)
-      </td>
-      <td>
-        @Html.DisplayFor(modelItem => item.LiftType.Name)
-      </td>
-      <td>
-        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-      </td>
-    </tr>
-    }*@
-  </tbody>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LiftViewModel[0].MaxLift)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LiftViewModel[0].IsMainLift)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.LiftViewModel.Where(x => x.LiftType == "Lower"))
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LiftType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LiftName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxLift)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsMainLift)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Lift.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Lift.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Lift.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
 </table>
