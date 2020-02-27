@@ -13,35 +13,34 @@ using Contracts;
 
 namespace Presentation.Pages.Lifts
 {
-  [Authorize]
-  public class IndexModel : PageModel
-  {
-    private readonly ILiftService _service;
-    private readonly ILiftNameService _liftNameService;
-    private readonly UserManager<IdentityUser> _userManager;
-    private readonly ILoggerService _logger;
-
-    public IndexModel(ILiftService service, ILiftNameService liftNameService, UserManager<IdentityUser> userManager, ILoggerService logger)
+    [Authorize]
+    public class IndexModel : PageModel
     {
-      _service = service;
-      _userManager = userManager;
-      _liftNameService = liftNameService;
-      _logger = logger;
-    }
+        private readonly ILiftService _service;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly ILoggerService _logger;
 
-    public IList<LiftViewModel> LiftViewModel { get; set; }
+        public IndexModel(ILiftService service, UserManager<IdentityUser> userManager, ILoggerService logger)
+        {
+            _service = service;
+            _userManager = userManager;
+            _logger = logger;
+        }
 
-    public async Task OnGetAsync()
-    {
-      try
-      {
-        var user = await _userManager.GetUserAsync(HttpContext.User);
-        LiftViewModel = _service.GetAll(user.Id);
-      }
-      catch(Exception ex)
-      {
-        // logging
-      }      
+        public IList<LiftViewModel> LiftViewModel { get; set; }
+
+        public async Task OnGetAsync()
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                LiftViewModel = _service.GetAll(user.Id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred.");
+                _logger.LogError($"Message: {0}" + ex.Message);
+            }
+        }
     }
-  }
 }

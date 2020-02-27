@@ -17,6 +17,7 @@ using Repository;
 using Contracts.IRepositories;
 using AutoMapper;
 using Extensions;
+using Microsoft.Extensions.Hosting;
 
 namespace Presentation
 {
@@ -34,8 +35,8 @@ namespace Presentation
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-          // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-          options.CheckConsentNeeded = context => true;
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
@@ -47,6 +48,8 @@ namespace Presentation
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<AppDbContext>();
+
+            services.AddRazorPages();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -94,18 +97,15 @@ namespace Presentation
             IMapper mapper = mappingConfig.CreateMapper();
 
             services.AddSingleton(mapper);
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-
             }
             else
             {
@@ -115,11 +115,18 @@ namespace Presentation
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseRouting();
+
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+            app.UseAuthorization();
 
-            app.UseMvc();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+            });
         }
     }
 }
