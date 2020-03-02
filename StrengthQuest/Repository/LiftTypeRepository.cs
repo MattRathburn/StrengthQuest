@@ -25,7 +25,7 @@ namespace Repository
 
         public IEnumerable<LiftType> GetAll()
         {
-            return _context.LiftTypes.ToList();
+            return _context.LiftTypes.AsEnumerable();
         }
 
         public LiftType Get(string id)

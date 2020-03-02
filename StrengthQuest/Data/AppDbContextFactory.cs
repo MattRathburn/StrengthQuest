@@ -19,13 +19,12 @@ namespace Data.Models
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
               .SetBasePath(Directory.GetCurrentDirectory())
-              .AddJsonFile(@Directory.GetCurrentDirectory() + "/../Presentation/appsettings.json")
+              .AddJsonFile(@Directory.GetCurrentDirectory() + "./../Presentation/appsettings.json")
               .Build();
             var builder = new DbContextOptionsBuilder<AppDbContext>();
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             builder.UseSqlServer(connectionString);
             return new AppDbContext(builder.Options);
-
         }
     }
 }

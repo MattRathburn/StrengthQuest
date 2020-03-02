@@ -41,10 +41,8 @@ namespace Presentation
             });
 
             services.AddDbContext<AppDbContext>(options =>
-            options.UseLazyLoadingProxies()
-              .UseSqlServer(
-              Configuration["ConnectionStrings:DefaultConnection"]));
-            //Configuration.GetConnectionString("DefaultConnection")));
+              options.UseSqlServer(
+              Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<AppDbContext>();
@@ -88,15 +86,6 @@ namespace Presentation
             services.AddTransient<ILiftTypeService, LiftTypeService>();
             services.AddTransient<ILiftTypeRepository, LiftTypeRepository>();
             services.AddTransient<AppDbContext>();
-
-            var mappingConfig = new MapperConfiguration(m =>
-            {
-                m.AddProfile(new LiftProfile());
-            });
-
-            IMapper mapper = mappingConfig.CreateMapper();
-
-            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -21,6 +21,5 @@ namespace Data
         public DbSet<LiftSequence> LiftSequences { get; set; }
         public DbSet<LiftType> LiftTypes { get; set; }
         public DbSet<WeightMetric> WeightMetrics { get; set; }
-
     }
 }

@@ -28,7 +28,7 @@ namespace Repository
             try
             {
                 return _context.WeightMetrics
-                  .Where(x => x.User.Id == uid);
+                  .Where(x => x.UserId == uid);
             }
             catch (Exception ex)
             {
@@ -43,7 +43,7 @@ namespace Repository
             try
             {
                 WeightMetric wm = await _context.WeightMetrics
-                  .FirstOrDefaultAsync(w => w.User.Id == uid);
+                  .FirstOrDefaultAsync(w => w.UserId == uid);
                 return wm;
             }
             catch (Exception ex)

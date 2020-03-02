@@ -6,22 +6,23 @@ using System.Text;
 
 namespace Entities.Models
 {
-  public class Lift
-  {
-    [Key]
-    public string Id { get; set; }
+    public class Lift
+    {
+        [Key]
+        public string Id { get; set; }
 
-    public float MaxLift { get; set; }
+        public float MaxLift { get; set; }
 
-    public bool IsMainLift { get; set; }
+        public bool IsMainLift { get; set; }
 
-    public DateTime Date { get; set; }
+        public DateTime Date { get; set; }
 
-    public virtual User User { get; set; }
+        [Required]
+        public string UserId { get; set; }
 
-    public virtual LiftName LiftName { get; set; }
+        public virtual LiftName LiftName { get; set; }
 
-    public virtual LiftType LiftType { get; set; }
+        public virtual LiftType LiftType { get; set; }
 
-  }
+    }
 }

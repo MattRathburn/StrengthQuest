@@ -26,13 +26,15 @@ namespace Repository
         public IEnumerable<Lift> GetAll(string uid)
         {
             return _context.Lifts
-              .Where(x => x.User.Id == uid);
+              .Include(l => l.LiftName)
+              .Include(t => t.LiftType)
+              .Where(x => x.UserId == uid);
         }
 
         public Lift Get(string id, string uid)
         {
             return _context.Lifts
-              .FirstOrDefault(x => x.User.Id == uid && x.Id == id);
+              .FirstOrDefault(x => x.UserId == uid && x.Id == id);
         }
 
         public async Task<Lift> CreateAsync(Lift lift, string uid)

@@ -5,11 +5,12 @@ using System.Text;
 
 namespace Entities.Models
 {
-  public class LiftName
-  {
-    public string Id { get; set; }
+    public class LiftName
+    {
+        public string Id { get; set; }
 
-    public string Name { get; set; }
+        public string Name { get; set; }
 
-  }
+        public virtual LiftType LiftType { get; set; }
+    }
 }

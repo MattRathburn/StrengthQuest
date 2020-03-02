@@ -26,13 +26,13 @@ namespace Repository
         public IEnumerable<LiftSequence> GetAll(string uid)
         {
             return _context.LiftSequences
-              .Where(x => x.User.Id == uid);
+              .Where(x => x.UserId == uid);
         }
 
         public IEnumerable<LiftSequence> Get(string id, string uid)
         {
             return _context.LiftSequences
-              .Where(x => x.User.Id == uid)
+              .Where(x => x.UserId == uid)
               .Where(x => x.Id == id);
         }
 

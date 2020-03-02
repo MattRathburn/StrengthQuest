@@ -1,6 +1,10 @@
 USE StrengthQuestDev
 GO
 
+/*
+ *   To use this you must register a user first
+ */
+
 DECLARE @UId nvarchar(256);
 
 select Top(1) @UId = id from AspNetUsers

@@ -8,7 +8,7 @@ namespace Entities.Models
 {
   public class User : IdentityUser
   {
-    public virtual ICollection<Lift> Lifts { get; set; }
+    public virtual IEnumerable<Lift> Lifts { get; set; }
 
   }
 }
