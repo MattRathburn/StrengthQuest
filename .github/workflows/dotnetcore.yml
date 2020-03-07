@@ -6,12 +6,27 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+        matrix:
+            node-version: [13.x]
 
     steps:
     - uses: actions/checkout@v1
+    
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '3.0.100'
+        dotnet-version: '3.1.000'
+        
+    - name: Node $
+      uses: actions/setup-node@v1
+      with:
+        node-version: $
+    
+    - name: npm install and npm run build
+      run: |
+        npm ci
+        npm run build:ci
+        
     - name: Build with dotnet
       run: dotnet build StrengthQuest
