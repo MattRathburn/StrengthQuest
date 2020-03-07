@@ -24,12 +24,12 @@ namespace Services
 
         public async Task<LiftSequence> CreateAsync(LiftSequence lift, string uid)
         {
-            return await _liftSequenceRepository.CreateAsync(lift, uid);
+            return await _liftSequenceRepository.CreateAsync(lift);
         }
 
         public async Task<LiftSequence> DeleteAsync(string id, string userId)
         {
-            return await _liftSequenceRepository.DeleteAsync(id, userId);
+            return await _liftSequenceRepository.DeleteAsync(id);
         }
 
         public List<LiftSequence> GetAll(string userId)
@@ -44,7 +44,7 @@ namespace Services
 
         public async Task<LiftSequence> UpdateAsync(LiftSequence lift, string uid)
         {
-            return await _liftSequenceRepository.UpdateAsync(lift, uid);
+            return await _liftSequenceRepository.UpdateAsync(lift);
         }
     }
 }

@@ -54,7 +54,7 @@ namespace Repository
             }
         }
 
-        public async Task<WeightMetric> CreateAsync(WeightMetric weightMetric, string uid)
+        public async Task<WeightMetric> CreateAsync(WeightMetric weightMetric)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace Repository
             return weightMetric;
         }
 
-        public async Task<WeightMetric> UpdateAsync(WeightMetric weightMetric, string uid)
+        public async Task<WeightMetric> UpdateAsync(WeightMetric weightMetric)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace Repository
             return weightMetric;
         }
 
-        public async Task<WeightMetric> DeleteAsync(string id, string uid)
+        public async Task<WeightMetric> DeleteAsync(string id)
         {
             var weightMetric = await _context.WeightMetrics.FindAsync(id);
             if (weightMetric == null)

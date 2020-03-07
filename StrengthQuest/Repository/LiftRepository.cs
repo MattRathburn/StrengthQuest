@@ -23,11 +23,18 @@ namespace Repository
             _logger = logger;
         }
 
-        public IEnumerable<Lift> GetAll(string uid)
+        public IEnumerable<Lift> GetLiftsByUserId(string uid)
         {
+            // Use Eager Loading
             return _context.Lifts
               .Include(l => l.LiftName)
               .Include(t => t.LiftType)
+              .Where(x => x.UserId == uid);
+        }
+
+        public IEnumerable<Lift> GetAll(string uid)
+        {
+            return _context.Lifts
               .Where(x => x.UserId == uid);
         }
 
@@ -37,7 +44,7 @@ namespace Repository
               .FirstOrDefault(x => x.UserId == uid && x.Id == id);
         }
 
-        public async Task<Lift> CreateAsync(Lift lift, string uid)
+        public async Task<Lift> CreateAsync(Lift lift)
         {
             try
             {
@@ -53,7 +60,7 @@ namespace Repository
             }
         }
 
-        public async Task<Lift> UpdateAsync(Lift lift, string uid)
+        public async Task<Lift> UpdateAsync(Lift lift)
         {
             try
             {
@@ -70,7 +77,7 @@ namespace Repository
             return lift;
         }
 
-        public async Task<Lift> DeleteAsync(string id, string uid)
+        public async Task<Lift> DeleteAsync(string id)
         {
             //  There needs to be a better way to return objects
             //  if something goes wrong

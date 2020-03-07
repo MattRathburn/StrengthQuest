@@ -2,6 +2,7 @@ using Contracts;
 using Contracts.IRepositories;
 using Contracts.IServices;
 using Entities.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,13 @@ namespace Services
         public List<LiftName> GetAll()
         {
             return _liftNameRepository.GetAll().ToList();
+        }
+
+        public SelectList GetAllToSelectList()
+        {
+            var liftNames = _liftNameRepository.GetAll();
+
+            return new SelectList(liftNames, "Id", "Name");
         }
 
         public LiftName Get(string id)

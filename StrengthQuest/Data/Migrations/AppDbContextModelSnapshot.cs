@@ -36,8 +36,11 @@ namespace Data.Migrations
                     b.Property<string>("LiftTypeId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<float>("MaxLift")
-                        .HasColumnType("real");
+                    b.Property<double>("MaxLift")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Reps")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .IsRequired()

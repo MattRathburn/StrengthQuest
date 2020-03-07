@@ -11,7 +11,9 @@ namespace Entities.Models
         [Key]
         public string Id { get; set; }
 
-        public float MaxLift { get; set; }
+        public double MaxLift { get; set; }
+
+        public int Reps { get; set; }
 
         public bool IsMainLift { get; set; }
 

@@ -36,7 +36,7 @@ namespace Repository
               .Where(x => x.Id == id);
         }
 
-        public async Task<LiftSequence> CreateAsync(LiftSequence liftSequence, string uid)
+        public async Task<LiftSequence> CreateAsync(LiftSequence liftSequence)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace Repository
             return liftSequence;
         }
 
-        public async Task<LiftSequence> UpdateAsync(LiftSequence liftSequence, string uid)
+        public async Task<LiftSequence> UpdateAsync(LiftSequence liftSequence)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace Repository
             return liftSequence;
         }
 
-        public async Task<LiftSequence> DeleteAsync(string id, string uid)
+        public async Task<LiftSequence> DeleteAsync(string id)
         {
 
             var liftSequence = await _context.LiftSequences.FindAsync(id);

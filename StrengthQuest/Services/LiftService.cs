@@ -24,7 +24,6 @@ namespace Services
             _liftRepository = liftRepository;
             _liftNameRepository = liftNameRepository;
             _liftTypeRepository = liftTypeRepository;
-            //_liftMapper = liftMapper;
             _logger = logger;
         }
 
@@ -32,20 +31,12 @@ namespace Services
         {
             try
             {
-                //List<Lift> lifts = _liftRepository.GetAll(uid).ToList();
-                //List<LiftName> liftNames = _liftNameRepository.GetAll().ToList();
-                //List<LiftType> liftTypes = _liftTypeRepository.GetAll().ToList();
-                var lifts = _liftRepository.GetAll(uid).ToList();
-                //var liftNames = _liftNameRepository.GetAll();
-                //var liftTypes = _liftTypeRepository.GetAll();
+                var lifts = _liftRepository.GetLiftsByUserId(uid).ToList();
                 List<LiftViewModel> viewModel = new List<LiftViewModel>();
 
                 foreach (Lift l in lifts)
                 {
                     viewModel.Add(LiftMapper.MapLiftToViewModel(l, uid));
-                      //liftNames.FirstOrDefault(x => x.Id == l.LiftName.Id),
-                      //liftTypes.FirstOrDefault(x => x.Id == l.LiftType.Id),
-                      //uid));
                 }
 
                 return viewModel;
@@ -54,6 +45,7 @@ namespace Services
             {
                 _logger.LogError($"Inner Exception: {0}" + ex.InnerException);
             }
+
             return null;
         }
 
@@ -64,10 +56,7 @@ namespace Services
             LiftName liftName = _liftNameRepository.Get(lift.LiftName.Id);
             LiftType liftType = _liftTypeRepository.Get(lift.LiftType.Id);
 
-            LiftViewModel viewModel = LiftMapper.MapLiftToViewModel(lift, uid);//,
-                //liftName,
-                //liftType,
-                //uid);
+            LiftViewModel viewModel = LiftMapper.MapLiftToViewModel(lift, uid);
 
             return viewModel;
         }
@@ -80,8 +69,8 @@ namespace Services
             LiftName liftName = _liftNameRepository.GetByName(viewModel.LiftName);
             LiftType liftType = _liftTypeRepository.GetByName(viewModel.LiftType);
             Lift lift = LiftMapper.MapViewModelToLift(viewModel, uid, liftName, liftType);
-            lift = await _liftRepository.CreateAsync(lift, uid);
-            return LiftMapper.MapLiftToViewModel(lift, uid);//, liftName, liftType, uid);
+            lift = await _liftRepository.CreateAsync(lift);
+            return LiftMapper.MapLiftToViewModel(lift, uid);
         }
 
         public async Task<LiftViewModel> UpdateAsync(LiftViewModel lift, string uid)
@@ -89,12 +78,11 @@ namespace Services
             /*
             * Update lift and call GetAll to retrieve the updated lifts 
             */
-            //var vm = new LiftViewModel();
-            Lift l = _liftRepository.Get(lift.Lift.Id, uid);
+            Lift l = _liftRepository.Get(lift.LiftId, uid);
             LiftName liftName = _liftNameRepository.GetByName(lift.LiftName);
             LiftType liftType = _liftTypeRepository.GetByName(lift.LiftType);
-            var updatedLift = await _liftRepository.UpdateAsync(l, uid);
-            return LiftMapper.MapLiftToViewModel(updatedLift, uid);//, liftName, liftType, uid);
+            var updatedLift = await _liftRepository.UpdateAsync(l);
+            return LiftMapper.MapLiftToViewModel(updatedLift, uid);
 
         }
 

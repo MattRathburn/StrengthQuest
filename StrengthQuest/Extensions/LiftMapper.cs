@@ -8,30 +8,27 @@ namespace Extensions
     {
         public static LiftViewModel MapLiftToViewModel(Lift lift, string uid)
         {
+            var trainingMax = MaxLiftCalculations.TrainingMax(lift.MaxLift);
+
             var vm = new LiftViewModel()
             {
 
                 MaxLift = lift.MaxLift,
+                TrainingMaxLift = trainingMax,
+                Reps = lift.Reps,
                 IsMainLift = lift.IsMainLift,
                 LiftName = lift.LiftName.Name,
                 LiftType = lift.LiftType.Name,
                 Date = lift.Date,
-                Lift = new Lift()
-                {
-                    Id = lift.Id,
-                    MaxLift = lift.MaxLift,
-                    IsMainLift = lift.IsMainLift,
-                    Date = lift.Date,
-                    UserId = uid,
-                    LiftName = new LiftName()
-                    {
-                        Id = lift.LiftName.Id
-                    },
-                    LiftType = new LiftType()
-                    {
-                        Id = lift.LiftType.Id
-                    }
-                }
+                LiftId = lift.Id,
+                Set1 = RepCalculations.CalculateReps(trainingMax, 0.75),
+                Set2 = RepCalculations.CalculateReps(trainingMax, 0.85),
+                Set3 = RepCalculations.CalculateReps(trainingMax, 0.95),
+                Set4 = RepCalculations.CalculateReps(trainingMax, 0.9),
+                Set5 = RepCalculations.CalculateReps(trainingMax, 0.85),
+                Set6 = RepCalculations.CalculateReps(trainingMax, 0.8),
+                Set7 = RepCalculations.CalculateReps(trainingMax, 0.75),
+                Set8 = RepCalculations.CalculateReps(trainingMax, 0.7),
             };
             return vm;
         }
@@ -40,8 +37,9 @@ namespace Extensions
         {
             return new Lift()
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = viewModel.LiftId,
                 MaxLift = viewModel.MaxLift,
+                Reps = viewModel.Reps,
                 IsMainLift = viewModel.IsMainLift,
                 Date = viewModel.Date,
                 UserId = uid,
