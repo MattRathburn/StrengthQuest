@@ -40,9 +40,9 @@ namespace Services
                 //var liftTypes = _liftTypeRepository.GetAll();
                 List<LiftViewModel> viewModel = new List<LiftViewModel>();
 
-                foreach (Lift l in lifts)
+                foreach (Lift lift in lifts)
                 {
-                    viewModel.Add(LiftMapper.MapLiftToViewModel(l, uid));
+                    viewModel.Add(LiftMapper.MapLiftToViewModel(lift, uid));
                       //liftNames.FirstOrDefault(x => x.Id == l.LiftName.Id),
                       //liftTypes.FirstOrDefault(x => x.Id == l.LiftType.Id),
                       //uid));

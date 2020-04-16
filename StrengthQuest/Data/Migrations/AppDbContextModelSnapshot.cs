@@ -33,11 +33,14 @@ namespace Data.Migrations
                     b.Property<string>("LiftNameId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("LiftSequence")
+                        .HasColumnType("int");
+
                     b.Property<string>("LiftTypeId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<float>("MaxLift")
-                        .HasColumnType("real");
+                    b.Property<double>("MaxLift")
+                        .HasColumnType("float");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -68,28 +71,6 @@ namespace Data.Migrations
                     b.HasIndex("LiftTypeId");
 
                     b.ToTable("LiftNames");
-                });
-
-            modelBuilder.Entity("Entities.Models.LiftSequence", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("LiftId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Sequence")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LiftId");
-
-                    b.ToTable("LiftSequences");
                 });
 
             modelBuilder.Entity("Entities.Models.LiftType", b =>
@@ -334,13 +315,6 @@ namespace Data.Migrations
                     b.HasOne("Entities.Models.LiftType", "LiftType")
                         .WithMany()
                         .HasForeignKey("LiftTypeId");
-                });
-
-            modelBuilder.Entity("Entities.Models.LiftSequence", b =>
-                {
-                    b.HasOne("Entities.Models.Lift", "Lift")
-                        .WithMany()
-                        .HasForeignKey("LiftId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

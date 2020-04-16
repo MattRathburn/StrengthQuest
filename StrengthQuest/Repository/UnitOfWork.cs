@@ -11,7 +11,6 @@ namespace Repository
         private readonly AppDbContext _context;
         private LiftNameRepository _liftNameRepository;
         private LiftRepository _liftRepository;
-        private LiftSequenceRepository _liftSequenceRepository;
         private LiftTypeRepository _liftTypeRepository;
         private WeightMetricRepository _weightMetricRepository;
         private ILoggerService _logger;

@@ -25,7 +25,9 @@ namespace Repository
 
         public IEnumerable<LiftName> GetAll()
         {
-            return _context.LiftNames.AsEnumerable();
+            return _context.LiftNames
+                .AsNoTracking()
+                .AsEnumerable();
         }
 
         public LiftName Get(string id)

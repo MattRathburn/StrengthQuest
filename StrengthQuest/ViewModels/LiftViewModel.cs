@@ -9,7 +9,7 @@ namespace ViewModels
     public class LiftViewModel
     {
         [Display(Name = "Max Lift")]
-        public float MaxLift { get; set; }
+        public double MaxLift { get; set; }
 
         public bool IsMainLift { get; set; }
 
@@ -18,6 +18,8 @@ namespace ViewModels
 
         [Display(Name = "Type")]
         public string LiftType { get; set; }
+
+        public int LiftSequence { get; set; }
 
         public DateTime Date { get; set; }
 

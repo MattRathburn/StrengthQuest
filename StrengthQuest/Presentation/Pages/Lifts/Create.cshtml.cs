@@ -39,6 +39,7 @@ namespace Presentation.Pages.Lifts
             var types = _liftTypeService.GetAll();
 
             LiftNames = new SelectList(names, "Id", "Name");
+            LiftTypes = new SelectList(types, "Id", "Name");
             return Page();
         }
 

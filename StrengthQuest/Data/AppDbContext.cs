@@ -18,7 +18,6 @@ namespace Data
 
         public DbSet<Lift> Lifts { get; set; }
         public DbSet<LiftName> LiftNames { get; set; }
-        public DbSet<LiftSequence> LiftSequences { get; set; }
         public DbSet<LiftType> LiftTypes { get; set; }
         public DbSet<WeightMetric> WeightMetrics { get; set; }
     }

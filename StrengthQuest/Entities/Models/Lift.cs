@@ -11,11 +11,13 @@ namespace Entities.Models
         [Key]
         public string Id { get; set; }
 
-        public float MaxLift { get; set; }
+        public double MaxLift { get; set; }
 
         public bool IsMainLift { get; set; }
 
         public DateTime Date { get; set; }
+
+        public int LiftSequence { get; set; }
 
         [Required]
         public string UserId { get; set; }
