@@ -8,3 +8,5 @@ For information or to learn about the strength program visit [here](https://www.
 
 StrengthQuest utilizes Asp.Net Core 3.0, MsSql Server, Entity Framework Core 3.0 and Razor pages.  There is also a branch that is going to utilize Angular.  
 
+## License
+[MIT](https://github.com/MattRathburn/StrengthQuest/blob/master/LICENSE)
