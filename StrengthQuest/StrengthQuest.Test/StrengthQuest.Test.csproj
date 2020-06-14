@@ -16,4 +16,8 @@
     <Folder Include="Functional Tests\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Extensions\Extensions.csproj" />
+  </ItemGroup>
+
 </Project>
