@@ -19,6 +19,8 @@ namespace ViewModels
         [Display(Name = "Type")]
         public string LiftType { get; set; }
 
+        public string Day { get; set; }
+
         public int LiftSequence { get; set; }
 
         public DateTime Date { get; set; }

@@ -19,6 +19,21 @@ namespace Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Entities.Models.Days", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Day")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Days");
+                });
+
             modelBuilder.Entity("Entities.Models.Lift", b =>
                 {
                     b.Property<string>("Id")
@@ -27,14 +42,14 @@ namespace Data.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("DaysId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsMainLift")
                         .HasColumnType("bit");
 
                     b.Property<string>("LiftNameId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("LiftSequence")
-                        .HasColumnType("int");
 
                     b.Property<string>("LiftTypeId")
                         .HasColumnType("nvarchar(450)");
@@ -47,6 +62,8 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DaysId");
 
                     b.HasIndex("LiftNameId");
 
@@ -301,6 +318,10 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entities.Models.Lift", b =>
                 {
+                    b.HasOne("Entities.Models.Days", "Days")
+                        .WithMany()
+                        .HasForeignKey("DaysId");
+
                     b.HasOne("Entities.Models.LiftName", "LiftName")
                         .WithMany()
                         .HasForeignKey("LiftNameId");

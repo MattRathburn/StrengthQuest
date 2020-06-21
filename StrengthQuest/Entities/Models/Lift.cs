@@ -17,8 +17,6 @@ namespace Entities.Models
 
         public DateTime Date { get; set; }
 
-        public int LiftSequence { get; set; }
-
         [Required]
         public string UserId { get; set; }
 
@@ -26,5 +24,6 @@ namespace Entities.Models
 
         public virtual LiftType LiftType { get; set; }
 
+        public virtual Days Days { get; set; }
     }
 }
