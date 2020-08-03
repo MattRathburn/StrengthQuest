@@ -1,0 +1,336 @@
+@page
+@model Presentation.Pages.Lifts.IndexModel
+
+@{
+    ViewData["Title"] = "Lifts";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@*<form method="get">
+        <button type="submit" asp-page="Create" class="btn btn-default">Create New</button>
+    </form>*@
+@foreach (var item in Model.LiftViewModel)
+{
+    <div class="Table">
+
+        <div>
+            <div>
+                @*
+                    <th>
+                        @Html.DisplayNameFor(model => model.LiftViewModel[0].Day)
+                    </th>*@
+                <div class="rowElement">
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftType)
+                </div>
+                <div class="rowElement">
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftName)
+                </div>
+                <div class="rowElement">
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].MaxLift)
+                </div>
+                <div class="rowElement">
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].WorkingMax)
+                </div>
+                <div></div>
+            </div>
+        </div>
+        <div>
+            <div>
+                <div class="rowElement">
+                    @Html.DisplayFor(modelItem => item.LiftType)
+                </div>
+                <div class="rowElement">
+                    @Html.DisplayFor(modelItem => item.LiftName)
+                </div>
+                <div class="rowElement">
+                    @Html.DisplayFor(modelItem => item.MaxLift)
+                </div>
+                <div class="rowElement">
+                    @Html.DisplayFor(modelItem => item.WorkingMax)
+                </div>
+                <div class="rowElement">
+                    <a asp-page="./Edit" asp-route-id="@item.Lift.Id">Edit</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Lift.Id">Delete</a>
+                </div>
+                <div></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="spacing"></div>
+}
+@*
+    <div class="divTable">
+        <div>
+            <div>
+                <div>
+                        @Html.DisplayNameFor(model => model.LiftViewModel[0].Day)
+                    </div>
+                <div class="rowElement">
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftType)
+                </div>
+                <div class="rowElement">
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftName)
+                </div>
+                <div class="rowElement">
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].MaxLift)
+                </div>
+                <div class="rowElement">
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].WorkingMax)
+                </div>
+                <div></div>
+            </div>
+        </div>
+        <div>
+            @foreach (var item in Model.LiftViewModel.Where(x => x.Day == "Monday"))
+            {
+                <div>
+                    <div class="rowElement">
+                        @Html.DisplayFor(modelItem => item.LiftType)
+                    </div>
+                    <div class="rowElement">
+                        @Html.DisplayFor(modelItem => item.LiftName)
+                    </div>
+                    <div class="rowElement">
+                        @Html.DisplayFor(modelItem => item.MaxLift)
+                    </div>
+                    <div class="rowElement">
+                        @Html.DisplayFor(modelItem => item.WorkingMax)
+                    </div>
+                    <div class="rowElement">
+                            <a asp-page="./Edit" asp-route-id="@item.Lift.Id">Edit</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.Lift.Id">Delete</a>
+                        </div>
+                    <div></div>
+                </div>
+            }
+        </div>
+    </div>
+    <table class="divTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].Day)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].MaxLift)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].WorkingMax)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.LiftViewModel.Where(x => x.Day == "Tuesday"))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LiftType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LiftName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaxLift)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkingMax)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Lift.Id">Edit</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Lift.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <table class="divTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].Day)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].MaxLift)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].WorkingMax)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.LiftViewModel.Where(x => x.Day == "Wednesday"))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LiftType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LiftName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaxLift)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkingMax)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Lift.Id">Edit</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Lift.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <table class="divTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].Day)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].MaxLift)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].WorkingMax)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.LiftViewModel.Where(x => x.Day == "Thursday"))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LiftType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LiftName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaxLift)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkingMax)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Lift.Id">Edit</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Lift.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <table class="divTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].Day)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].MaxLift)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].WorkingMax)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.LiftViewModel.Where(x => x.Day == "Friday"))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LiftType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LiftName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaxLift)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkingMax)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Lift.Id">Edit</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Lift.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <table class="divTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].Day)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].LiftName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].MaxLift)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiftViewModel[0].WorkingMax)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.LiftViewModel.Where(x => x.Day == "Saturday"))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LiftType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LiftName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaxLift)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkingMax)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Lift.Id">Edit</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Lift.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+*@
